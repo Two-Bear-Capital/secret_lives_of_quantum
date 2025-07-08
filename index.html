@@ -47,45 +47,27 @@
             border: 1px solid rgba(79, 195, 247, 0.2);
         }
         
+        .chapter-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        
+        .chapter-number {
+            color: #9c27b0;
+            font-size: 1.2em;
+            font-weight: normal;
+            margin-bottom: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        
         .chapter-title {
             color: #4fc3f7;
-            font-size: 2em;
-            margin-bottom: 30px;
-            text-align: center;
-            opacity: 0.3;
-            transition: opacity 0.5s ease;
+            font-size: 2.2em;
+            margin: 0;
+            font-weight: bold;
         }
         
-        .chapter-title.active {
-            opacity: 1;
-        }
-        
-        .step-indicator {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .step {
-            display: inline-block;
-            width: 30px;
-            height: 30px;
-            border-radius: 50%;
-            background: #333;
-            color: #fff;
-            line-height: 30px;
-            margin: 0 5px;
-            transition: all 0.3s ease;
-            font-size: 0.8em;
-        }
-        
-        .step.active {
-            background: #4fc3f7;
-            box-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
-        }
-        
-        .step.completed {
-            background: #4caf50;
-        }
         
         .visualization-area {
             min-height: 400px;
@@ -251,15 +233,39 @@
             transition: width 0.5s ease;
         }
         
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+        }
+        
+        .slide-counter {
+            color: #4fc3f7;
+            font-size: 0.9em;
+            font-weight: bold;
+        }
+        
+        .progress-text {
+            color: #999;
+            font-size: 0.8em;
+        }
+        
         .bloch-sphere {
             width: 200px;
             height: 200px;
             border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(79, 195, 247, 0.3), rgba(79, 195, 247, 0.1));
-            border: 2px solid rgba(79, 195, 247, 0.5);
+            background: 
+                radial-gradient(ellipse 60px 40px at 60px 50px, rgba(255, 255, 255, 0.4), transparent 50%),
+                radial-gradient(ellipse at 30% 20%, rgba(79, 195, 247, 0.6), rgba(79, 195, 247, 0.2) 40%, rgba(22, 33, 62, 0.8) 70%, rgba(10, 15, 30, 0.9));
+            border: 2px solid rgba(79, 195, 247, 0.3);
             position: relative;
             margin: 20px auto;
             display: none;
+            box-shadow: 
+                inset -20px -20px 40px rgba(0, 0, 0, 0.3),
+                inset 10px 10px 20px rgba(79, 195, 247, 0.2),
+                0 10px 30px rgba(0, 0, 0, 0.4);
         }
         
         .bloch-sphere.active {
@@ -268,8 +274,9 @@
         
         .bloch-axis {
             position: absolute;
-            background: rgba(255, 255, 255, 0.6);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
             border-radius: 1px;
+            box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
         }
         
         .bloch-axis.vertical {
@@ -278,6 +285,7 @@
             left: 50%;
             top: 10px;
             transform: translateX(-50%);
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
         }
         
         .bloch-axis.horizontal {
@@ -286,6 +294,28 @@
             top: 50%;
             left: 10px;
             transform: translateY(-50%);
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
+        }
+        
+        .bloch-axis::before {
+            content: '';
+            position: absolute;
+            background: rgba(255, 255, 255, 0.4);
+            border-radius: 50%;
+        }
+        
+        .bloch-axis.vertical::before {
+            width: 6px;
+            height: 6px;
+            top: -3px;
+            left: -2px;
+        }
+        
+        .bloch-axis.horizontal::before {
+            width: 6px;
+            height: 6px;
+            right: -3px;
+            top: -2px;
         }
         
         .bloch-vector {
@@ -298,7 +328,21 @@
             top: 50%;
             transform-origin: bottom center;
             transform: translateX(-50%) translateY(-100%) rotateZ(0deg);
-            transition: transform 0.5s ease;
+            transition: all 0.5s ease;
+            box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
+            display: none;
+        }
+        
+        .bloch-vector.active {
+            display: block;
+        }
+        
+        .bloch-vector.highlighted {
+            width: 5px;
+            height: 90px;
+            background: #ff6b1a;
+            box-shadow: 0 0 20px rgba(255, 87, 34, 0.8), 0 0 40px rgba(255, 87, 34, 0.4);
+            animation: pulse-arrow 1s ease-in-out;
         }
         
         .bloch-vector::after {
@@ -311,23 +355,42 @@
             border-left: 4px solid transparent;
             border-right: 4px solid transparent;
             border-bottom: 8px solid #ff5722;
+            transition: all 0.5s ease;
+        }
+        
+        .bloch-vector.highlighted::after {
+            left: -3px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #ff6b1a;
+            filter: drop-shadow(0 0 5px rgba(255, 87, 34, 0.8));
+        }
+        
+        @keyframes pulse-arrow {
+            0%, 100% { transform: translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1); }
+            50% { transform: translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1.2); }
         }
         
         .bloch-labels {
             position: absolute;
-            color: #fff;
+            color: #4fc3f7;
             font-weight: bold;
-            font-size: 0.9em;
+            font-size: 1em;
+            text-shadow: 0 0 5px rgba(79, 195, 247, 0.8), 0 1px 2px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 2px 6px;
+            border-radius: 3px;
+            border: 1px solid rgba(79, 195, 247, 0.3);
         }
         
         .bloch-labels.top {
-            top: -5px;
+            top: -35px;
             left: 50%;
             transform: translateX(-50%);
         }
         
         .bloch-labels.bottom {
-            bottom: -5px;
+            bottom: -35px;
             left: 50%;
             transform: translateX(-50%);
         }
@@ -422,6 +485,31 @@
             color: #999;
             margin-top: 5px;
         }
+        
+        .result-area {
+            background: rgba(156, 39, 176, 0.1);
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            border-left: 4px solid #9c27b0;
+            min-height: 50px;
+            display: none;
+        }
+        
+        .result-area.active {
+            display: block;
+        }
+        
+        .result-area h4 {
+            color: #9c27b0;
+            margin: 0 0 10px 0;
+            font-size: 1em;
+        }
+        
+        .result-area p {
+            margin: 0;
+            font-size: 0.9em;
+        }
     </style>
 </head>
 <body>
@@ -432,28 +520,16 @@
             <div class="progress-bar">
                 <div class="progress-fill" id="progress-fill"></div>
             </div>
+            <div class="progress-info">
+                <div class="slide-counter" id="slide-counter">Step 1 of 16</div>
+                <div class="progress-text" id="progress-text">Getting Started</div>
+            </div>
         </div>
         
         <div class="main-section">
-            <div class="chapter-title active" id="chapter-title">Chapter 1: What is a Qubit?</div>
-            
-            <div class="step-indicator">
-                <div class="step active" data-step="1">1</div>
-                <div class="step" data-step="2">2</div>
-                <div class="step" data-step="3">3</div>
-                <div class="step" data-step="4">4</div>
-                <div class="step" data-step="5">5</div>
-                <div class="step" data-step="6">6</div>
-                <div class="step" data-step="7">7</div>
-                <div class="step" data-step="8">8</div>
-                <div class="step" data-step="9">9</div>
-                <div class="step" data-step="10">10</div>
-                <div class="step" data-step="11">11</div>
-                <div class="step" data-step="12">12</div>
-                <div class="step" data-step="13">13</div>
-                <div class="step" data-step="14">14</div>
-                <div class="step" data-step="15">15</div>
-                <div class="step" data-step="16">16</div>
+            <div class="chapter-header">
+                <div class="chapter-number" id="chapter-number">Chapter 1</div>
+                <h2 class="chapter-title" id="chapter-title">Classical Computing</h2>
             </div>
             
             <div class="visualization-area" id="visualization-area">
@@ -495,8 +571,13 @@
             </div>
             
             <div class="explanation" id="explanation">
-                <h3>Classical vs Quantum Bits</h3>
-                <p>A classical bit can only be in one of two states: 0 or 1. Click "Try It" to see this qubit in the |0⟩ state, then click "Next Step" to continue learning!</p>
+                <h3>What is a Classical Bit?</h3>
+                <p>All computers today use bits - the fundamental unit of information. A classical bit can only be in one of two states: 0 or 1. Click "Try It" to toggle between these two states.</p>
+            </div>
+            
+            <div class="result-area" id="result-area">
+                <h4>Try It Result</h4>
+                <p id="result-text">Click "Try It" to see the result here!</p>
             </div>
         </div>
     </div>
@@ -510,17 +591,16 @@
             1: {
                 chapter: "Chapter 1: Classical Computing",
                 title: "What is a Classical Bit?",
-                content: "All computers today use bits - the fundamental unit of information. A classical bit can only be in one of two states: 0 or 1. Click \"Try It\" to see this bit in the 0 state.",
+                content: "All computers today use bits - the fundamental unit of information. A classical bit can only be in one of two states: 0 or 1. Click \"Try It\" to toggle between these two states.",
                 action: () => {
                     resetVisualization();
                     showClassicalBit();
                     setClassicalBit('zero');
+                    let currentBitState = 'zero';
                     setManualAction(() => {
-                        const bit = document.getElementById('classical-bit');
-                        bit.style.transform = 'scale(1.2)';
-                        setTimeout(() => {
-                            bit.style.transform = 'scale(1)';
-                        }, 300);
+                        currentBitState = currentBitState === 'zero' ? 'one' : 'zero';
+                        setClassicalBit(currentBitState);
+                        showResult(`The bit is now in state ${currentBitState === 'zero' ? '0' : '1'}. Classical bits can only be in one of these two definite states at any time.`, "Bit State");
                     });
                 }
             },
@@ -532,7 +612,7 @@
                     setClassicalBit('zero');
                     setManualAction(() => {
                         setClassicalBit('one');
-                        updateExplanation("Great! You've flipped the bit to 1. Classical computers manipulate millions of these bits to perform calculations.", "Bit Flipped!");
+                        showResult("Great! You've flipped the bit to 1. Classical computers manipulate millions of these bits to perform calculations.", "Bit Flipped!");
                     });
                 }
             },
@@ -541,9 +621,9 @@
                 title: "Binary Information",
                 content: "Multiple bits combine to represent human-readable information. Here's how 8 bits (1 byte) represent the letter 'A'. Click \"Try It\" to see different letters!",
                 action: () => {
-                    hideClassicalBit();
+                    resetVisualization();
                     showBinaryDisplay();
-                    setBinaryPattern('A');
+                    setBinaryPatternSilent('A'); // Set up silently without showing result
                     setManualAction(() => {
                         const patterns = ['A', 'B', 'C', '?', '!'];
                         const currentIndex = patterns.indexOf(document.getElementById('result').textContent);
@@ -557,10 +637,8 @@
                 title: "Enter the Quantum World",
                 content: "Quantum mechanics reveals that at the smallest scales, particles behave differently. A quantum bit (qubit) can exist in states that classical bits cannot. Let's explore this with the Bloch sphere.",
                 action: () => {
-                    hideClassicalBit();
-                    document.getElementById('binary-display').classList.remove('active');
+                    resetVisualization();
                     showBlochSphere();
-                    setBlochVector('north');
                     setManualAction(() => {
                         const sphere = document.getElementById('bloch-sphere');
                         sphere.style.transform = 'scale(1.1)';
@@ -577,8 +655,12 @@
                 action: () => {
                     setBlochVector('north');
                     setManualAction(() => {
-                        setBlochVector('north');
-                        updateExplanation("The qubit is in the |0⟩ state, pointing to the north pole. This is the quantum equivalent of classical bit 0.", "Qubit State |0⟩");
+                        const vector = document.getElementById('bloch-vector');
+                        vector.classList.add('highlighted');
+                        setTimeout(() => {
+                            vector.classList.remove('highlighted');
+                        }, 2000);
+                        showResult("The qubit is in the |0⟩ state, pointing to the north pole. This is the quantum equivalent of classical bit 0.", "Qubit State |0⟩");
                     });
                 }
             },
@@ -590,7 +672,7 @@
                     setBlochVector('north');
                     setManualAction(() => {
                         setBlochVector('south');
-                        updateExplanation("The qubit is now in the |1⟩ state, pointing to the south pole. Notice how the arrow flipped to the opposite pole!", "Qubit State |1⟩");
+                        showResult("The qubit is now in the |1⟩ state, pointing to the south pole. Notice how the arrow flipped to the opposite pole!", "Qubit State |1⟩");
                     });
                 }
             },
@@ -602,7 +684,7 @@
                     setBlochVector('south');
                     setManualAction(() => {
                         setBlochVector('equator');
-                        updateExplanation("🌟 The qubit is now in superposition! The arrow points to the equator, representing a state that's both |0⟩ and |1⟩ simultaneously.", "Superposition State");
+                        showResult("🌟 The qubit is now in superposition! The arrow points to the equator, representing a state that's both |0⟩ and |1⟩ simultaneously.", "Superposition State");
                     });
                 }
             },
@@ -616,7 +698,7 @@
                     setMainQubit('zero');
                     setManualAction(() => {
                         setMainQubit('zero');
-                        updateExplanation("This qubit is in the |0⟩ state - corresponding to the north pole of the Bloch sphere.", "Qubit |0⟩ State");
+                        showResult("This qubit is in the |0⟩ state - corresponding to the north pole of the Bloch sphere.", "Qubit |0⟩ State");
                     });
                 }
             },
@@ -686,7 +768,7 @@
                 currentStep++;
             }
             
-            updateStepIndicators();
+            hideResult(); // Reset Try It state
             updateProgress();
             updateButtonStates();
             
@@ -702,7 +784,7 @@
             if (currentStep > 1) {
                 currentStep--;
                 
-                updateStepIndicators();
+                hideResult(); // Reset Try It state
                 updateProgress();
                 updateButtonStates();
                 
@@ -715,21 +797,38 @@
             }
         }
         
-        function updateStepIndicators() {
-            document.querySelectorAll('.step').forEach((step, index) => {
-                step.classList.remove('active', 'completed');
-                if (index + 1 < currentStep) {
-                    step.classList.add('completed');
-                } else if (index + 1 === currentStep) {
-                    step.classList.add('active');
-                }
-            });
-        }
         
         function updateProgress() {
             const progressFill = document.getElementById('progress-fill');
+            const slideCounter = document.getElementById('slide-counter');
+            const progressText = document.getElementById('progress-text');
+            
             const percentage = (currentStep / totalSteps) * 100;
             progressFill.style.width = percentage + '%';
+            
+            slideCounter.textContent = `Step ${currentStep} of ${totalSteps}`;
+            
+            // Update progress text based on step
+            const progressMessages = {
+                1: "Getting Started",
+                2: "Classical Basics", 
+                3: "Binary Information",
+                4: "Entering Quantum",
+                5: "Bloch Sphere Basics",
+                6: "Quantum States",
+                7: "Superposition",
+                8: "Quantum Qubits",
+                9: "Quantum Gates",
+                10: "Gate Operations",
+                11: "Advanced Gates",
+                12: "Measurement",
+                13: "Entanglement",
+                14: "Quantum Correlations",
+                15: "Advanced Concepts",
+                16: "Journey Complete!"
+            };
+            
+            progressText.textContent = progressMessages[currentStep] || "Learning";
         }
         
         function updateButtonStates() {
@@ -756,9 +855,14 @@
             }
         }
         
-        function updateChapterTitle(chapter) {
-            const chapterTitle = document.getElementById('chapter-title');
-            chapterTitle.textContent = chapter;
+        function updateChapterTitle(chapterText) {
+            // Parse "Chapter 1: Classical Computing" format
+            const parts = chapterText.split(': ');
+            const chapterNumber = parts[0]; // "Chapter 1"
+            const chapterTitle = parts[1]; // "Classical Computing"
+            
+            document.getElementById('chapter-number').textContent = chapterNumber;
+            document.getElementById('chapter-title').textContent = chapterTitle;
         }
         
         function updateExplanation(content, title) {
@@ -766,10 +870,24 @@
             explanation.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
         }
         
+        function showResult(content, title = "Try It Result") {
+            const resultArea = document.getElementById('result-area');
+            const resultText = document.getElementById('result-text');
+            resultArea.classList.add('active');
+            resultArea.querySelector('h4').textContent = title;
+            resultText.textContent = content;
+        }
+        
+        function hideResult() {
+            const resultArea = document.getElementById('result-area');
+            resultArea.classList.remove('active');
+        }
+        
         function resetVisualization() {
             document.getElementById('classical-bit').style.display = 'none';
             document.getElementById('binary-display').classList.remove('active');
             document.getElementById('bloch-sphere').classList.remove('active');
+            document.getElementById('bloch-vector').classList.remove('active', 'highlighted');
             document.getElementById('main-qubit').style.display = 'none';
             document.getElementById('second-qubit').classList.add('hidden');
             document.getElementById('entanglement-line').classList.remove('active');
@@ -777,6 +895,7 @@
                 gate.classList.remove('active');
                 gate.style.display = 'none';
             });
+            hideResult();
             isEntangled = false;
         }
         
@@ -812,6 +931,8 @@
         
         function setBlochVector(position) {
             const vector = document.getElementById('bloch-vector');
+            vector.classList.add('active'); // Show the vector
+            
             if (position === 'north') {
                 vector.style.transform = 'translateX(-50%) translateY(-100%) rotateZ(0deg)';
             } else if (position === 'south') {
@@ -826,7 +947,7 @@
             document.getElementById('classical-bit').style.display = 'none';
         }
         
-        function setBinaryPattern(char) {
+        function setBinaryPatternSilent(char) {
             const patterns = {
                 'A': '01000001',
                 'B': '01000010',
@@ -839,25 +960,43 @@
             const result = document.getElementById('result');
             const label = document.getElementById('binary-display').querySelector('.binary-label');
             
-            // Update each bit
+            // Update each bit without animation
             for (let i = 0; i < 8; i++) {
                 const bit = document.getElementById(`bit-${i}`);
                 const value = pattern[i];
                 bit.textContent = value;
                 bit.className = `bit-box ${value === '0' ? 'zero' : 'one'}`;
-                
-                // Animate the change
+            }
+            
+            result.textContent = char;
+            const decimal = parseInt(pattern, 2);
+            label.textContent = `ASCII Binary (${pattern} = ${decimal} = '${char}')`;
+        }
+        
+        function setBinaryPattern(char) {
+            setBinaryPatternSilent(char);
+            
+            const patterns = {
+                'A': '01000001',
+                'B': '01000010',
+                'C': '01000011',
+                '?': '00111111',
+                '!': '00100001'
+            };
+            
+            const pattern = patterns[char] || '00000000';
+            const decimal = parseInt(pattern, 2);
+            
+            // Animate the change
+            for (let i = 0; i < 8; i++) {
+                const bit = document.getElementById(`bit-${i}`);
                 bit.style.transform = 'scale(1.2)';
                 setTimeout(() => {
                     bit.style.transform = 'scale(1)';
                 }, 100 + i * 50);
             }
             
-            result.textContent = char;
-            const decimal = parseInt(pattern, 2);
-            label.textContent = `ASCII Binary (${pattern} = ${decimal} = '${char}')`;
-            
-            updateExplanation(`The 8 bits now represent '${char}'. In ASCII encoding, ${pattern} equals ${decimal} which displays as '${char}'. Try clicking again!`, "Binary Representation");
+            showResult(`The 8 bits now represent '${char}'. In ASCII encoding, ${pattern} equals ${decimal} which displays as '${char}'. Try clicking again!`, "Binary Result");
         }
         
         function setMainQubit(state) {
@@ -901,7 +1040,7 @@
             
             setTimeout(() => {
                 const resultText = result === 'zero' ? '|0⟩' : '|1⟩';
-                updateExplanation(`Measurement result: ${resultText}. Try clicking "Try It" again to see another random result!`, "Measurement Result");
+                showResult(`Measurement result: ${resultText}. Try clicking "Try It" again to see another random result!`, "Measurement Result");
             }, 500);
         }
         
@@ -917,7 +1056,7 @@
             setTimeout(() => {
                 const result1Text = result1 === 'zero' ? '|0⟩' : '|1⟩';
                 const result2Text = result2 === 'zero' ? '|0⟩' : '|1⟩';
-                updateExplanation(`Entangled measurement: Left qubit is ${result1Text}, Right qubit is ${result2Text}. Notice they're always opposite!`, "Entangled Measurement");
+                showResult(`Entangled measurement: Left qubit is ${result1Text}, Right qubit is ${result2Text}. Notice they're always opposite!`, "Entangled Measurement");
             }, 500);
         }
         
@@ -954,7 +1093,6 @@
         
         // Initialize
         window.addEventListener('load', () => {
-            updateStepIndicators();
             updateProgress();
             updateButtonStates();
             stepContent[1].action();
