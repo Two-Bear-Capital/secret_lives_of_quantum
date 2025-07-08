@@ -9,15 +9,14 @@ An interactive visualization that teaches quantum computing concepts through han
 
 ## Overview
 
-This educational tool breaks down complex quantum computing concepts into digestible, interactive lessons. Through 16 progressive steps, users learn about:
+This educational tool breaks down complex quantum computing concepts into digestible, interactive lessons. Through 20 progressive steps across 7 chapters, users learn about:
 
-- Classical bits vs quantum bits (qubits)
-- Binary representation and ASCII encoding
-- The Bloch sphere representation
-- Quantum superposition
-- Quantum measurement and collapse
-- Quantum entanglement
-- Quantum gates (X, H, Z)
+- **Classical Computing**: Bits, binary representation, and ASCII encoding
+- **Quantum Fundamentals**: Qubits and the Bloch sphere
+- **Quantum Properties**: Superposition and measurement
+- **Quantum Gates**: X, H, and Z gate operations
+- **Quantum Entanglement**: Creating and measuring entangled qubits
+- **Quantum Advantage**: Why quantum computing matters and real-world applications
 
 ## Getting Started
 
@@ -73,19 +72,33 @@ Then navigate to `http://localhost:8000` in your browser.
 ## How to Use
 
 1. **Start the Journey**: The tutorial begins automatically with classical computing concepts
-2. **Interactive Learning**: Click "Try It" to interact with each concept
+2. **Interactive Learning**: Click "Try It" to interact with each concept and see immediate results
 3. **Navigate**: Use "Next Step" and "Previous Step" buttons to move through lessons
-4. **Progress Tracking**: Watch the progress bar and step indicators to see your advancement
+4. **Progress Tracking**: Watch the progress bar and "Step X of 20" indicator
 5. **Experiment**: Many visualizations are interactive - click on qubits, gates, and other elements
+
+### Learning Path
+
+The tutorial progresses through 7 chapters:
+
+1. **Classical Computing** (Steps 1-3): Understanding bits and binary
+2. **Introduction to Quantum** (Steps 4-7): The Bloch sphere and quantum states
+3. **Quantum Qubits** (Step 8): Transitioning from theory to practice
+4. **Quantum Gates** (Steps 9-12): X, H, and Z gate operations
+5. **Quantum Measurement** (Steps 13-14): Superposition collapse and randomness
+6. **Quantum Entanglement** (Steps 15-16): Creating and measuring entangled qubits
+7. **Quantum Advantage** (Steps 17-19): Real-world applications and why quantum matters
 
 ## Features
 
-- 🎯 **Progressive Learning**: 16 carefully crafted steps from classical to quantum
-- 🎨 **Visual Representations**: Bloch sphere, qubit states, and gate operations
-- 🔄 **Interactive Elements**: Hands-on manipulation of quantum states
-- 📊 **Binary Visualization**: See how bits form human-readable information
+- 🎯 **Progressive Learning**: 20 carefully crafted steps from classical to quantum computing
+- 🎨 **Visual Representations**: 3D Bloch sphere, qubit states, entanglement visualization, and gate operations
+- 🔄 **Interactive Elements**: Hands-on manipulation of quantum states with immediate visual feedback
+- 📊 **Binary Visualization**: See how classical bits form human-readable ASCII characters
 - ⚡ **No Dependencies**: Pure HTML/CSS/JS - works anywhere
 - 🌙 **Dark Theme**: Easy on the eyes with quantum-inspired aesthetics
+- 🔗 **Entanglement Demo**: Visual representation of quantum entanglement with connected qubits
+- 🚀 **Quantum Advantage**: Learn why quantum computers outperform classical computers for certain problems
 
 ## Project Structure
 
@@ -101,10 +114,14 @@ secret_lives_of_quantum/
 Since this is a static HTML file, deployment is straightforward:
 
 ### GitHub Pages
-1. Push to GitHub
-2. Go to Settings → Pages
-3. Select source branch and save
-4. Your site will be available at `https://yourusername.github.io/secret_lives_of_quantum/`
+This project is already configured to deploy to GitHub Pages!
+
+🌐 **Live Demo**: [https://two-bear-capital.github.io/secret_lives_of_quantum/](https://two-bear-capital.github.io/secret_lives_of_quantum/)
+
+To update the deployment:
+1. Make your changes locally
+2. Push to the main branch
+3. GitHub Pages will automatically update within a few minutes
 
 ### Any Web Server
 Simply copy `index.html` to your web server's public directory.
@@ -121,6 +138,8 @@ Contributions are welcome! Please feel free to submit a Pull Request. For major 
 ## License
 
 This project is open source and available under the [MIT License](LICENSE).
+
+Copyright (c) 2024 Two Bear Capital
 
 ## Acknowledgments
 
