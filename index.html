@@ -86,7 +86,7 @@
             width: 60px;
             height: 60px;
             border-radius: 50%;
-            margin: 10px;
+            margin: 10px 40px;
             position: relative;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -171,21 +171,48 @@
         
         .entanglement-line {
             position: absolute;
-            height: 2px;
-            background: linear-gradient(90deg, #4fc3f7, #9c27b0, #4fc3f7);
-            animation: flow 2s infinite;
+            height: 4px;
+            background: linear-gradient(90deg, 
+                transparent, 
+                #4fc3f7 20%, 
+                #9c27b0 50%, 
+                #4fc3f7 80%, 
+                transparent);
+            background-size: 200% 100%;
+            animation: flow 3s linear infinite;
             opacity: 0;
             transition: opacity 0.5s ease;
+            filter: drop-shadow(0 0 4px rgba(156, 39, 176, 0.6));
+            z-index: 10;
         }
         
         .entanglement-line.active {
             opacity: 1;
         }
         
+        .entanglement-line::before,
+        .entanglement-line::after {
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: #9c27b0;
+            top: -2px;
+            box-shadow: 0 0 10px rgba(156, 39, 176, 0.8);
+        }
+        
+        .entanglement-line::before {
+            left: -4px;
+        }
+        
+        .entanglement-line::after {
+            right: -4px;
+        }
+        
         @keyframes flow {
             0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
+            100% { background-position: 200% 50%; }
         }
         
         .quantum-gate {
@@ -215,6 +242,14 @@
         
         .hidden {
             display: none !important;
+        }
+        
+        #second-qubit {
+            display: none;
+        }
+        
+        #second-qubit:not(.hidden) {
+            display: flex !important;
         }
         
         .progress-bar {
@@ -509,6 +544,7 @@
         .result-area p {
             margin: 0;
             font-size: 0.9em;
+            white-space: pre-line;
         }
     </style>
 </head>
@@ -585,7 +621,7 @@
     <script>
         let currentStep = 1;
         let isEntangled = false;
-        let totalSteps = 16;
+        let totalSteps = 20;
         
         const stepContent = {
             1: {
@@ -765,19 +801,86 @@
             },
             15: {
                 chapter: "Chapter 6: Quantum Entanglement",
-                title: "Entangled Qubits",
-                content: "When two qubits are entangled, measuring one instantly affects the other, regardless of distance. Click \"Try It\" to see entangled measurement!",
+                title: "Creating Entanglement",
+                content: "Let's create quantum entanglement! We'll start with two separate qubits. Click \"Try It\" to entangle them - watch as they become connected!",
+                action: () => {
+                    resetVisualization();
+                    showTwoQubits();
+                    setMainQubit('zero');
+                    setSecondQubit('zero');
+                    setManualAction(() => {
+                        createEntanglement();
+                        showResult("🔗 The qubits are now entangled! They're in a shared superposition state. When measured, they'll always give opposite results. Click \"Next Step\" to see this in action!", "Entanglement Created!");
+                    });
+                }
+            },
+            16: {
+                chapter: "Chapter 6: Quantum Entanglement",
+                title: "Measuring Entangled Qubits",
+                content: "Now let's measure the entangled qubits! Einstein called this 'spooky action at a distance.' Click \"Try It\" multiple times to see they always give opposite results!",
+                action: () => {
+                    // Keep the entangled state from previous step
+                    if (!isEntangled) {
+                        showTwoQubits();
+                        createEntanglement();
+                    }
+                    setManualAction(() => measureEntangledPair());
+                }
+            },
+            17: {
+                chapter: "Chapter 7: Quantum Advantage",
+                title: "Why Quantum Computing Matters",
+                content: "Classical computers process bits one at a time. But quantum computers use superposition to explore multiple possibilities simultaneously! Click \"Try It\" to see the difference.",
+                action: () => {
+                    resetVisualization();
+                    showClassicalBit();
+                    setClassicalBit('zero');
+                    let classicalSteps = 0;
+                    setManualAction(() => {
+                        classicalSteps++;
+                        setClassicalBit(classicalSteps % 2 === 0 ? 'zero' : 'one');
+                        showResult(`Classical computing: Checking possibilities one at a time. Step ${classicalSteps} of many... With 10 bits, we'd need 1,024 checks. With 20 bits, over 1 million!`, "Sequential Processing");
+                    });
+                }
+            },
+            18: {
+                chapter: "Chapter 7: Quantum Advantage",
+                title: "Quantum Parallelism",
+                content: "Quantum computers can check all possibilities at once using superposition! This is how they solve certain problems exponentially faster than classical computers.",
+                action: () => {
+                    resetVisualization();
+                    showMainQubit();
+                    setMainQubit('superposition');
+                    setManualAction(() => {
+                        const qubit = document.getElementById('main-qubit');
+                        qubit.style.boxShadow = '0 0 50px rgba(156, 39, 176, 1)';
+                        setTimeout(() => {
+                            qubit.style.boxShadow = '0 0 20px rgba(156, 39, 176, 0.5)';
+                        }, 1000);
+                        showResult("🚀 Quantum computing: All possibilities explored simultaneously! With 10 qubits, we explore 1,024 states at once. With 20 qubits, over 1 million states in parallel!", "Quantum Parallelism");
+                    });
+                }
+            },
+            19: {
+                chapter: "Chapter 7: Quantum Advantage",
+                title: "Real-World Applications",
+                content: "Quantum computers excel at specific problems: cryptography, drug discovery, optimization, and AI. Entanglement and superposition make these breakthroughs possible!",
                 action: () => {
                     resetVisualization();
                     showTwoQubits();
                     createEntanglement();
-                    setManualAction(() => measureEntangledPair());
+                    setManualAction(() => {
+                        measureEntangledPair();
+                        setTimeout(() => {
+                            showResult("💊 Drug Discovery: Simulate molecular interactions\n🔐 Cryptography: Break current encryption, create quantum-safe methods\n🚗 Optimization: Solve traffic flow and logistics\n🤖 AI: Enhance machine learning algorithms", "Quantum Applications");
+                        }, 500);
+                    });
                 }
             },
-            16: {
+            20: {
                 chapter: "Journey Complete!",
                 title: "🎉 Congratulations!",
-                content: "You've learned the fundamentals of quantum computing: qubits, superposition, measurement, entanglement, and quantum gates. These concepts form the foundation of quantum algorithms and quantum computing's incredible potential!",
+                content: "You've learned how quantum computing works and why it matters! From qubits to quantum algorithms, you now understand the fundamentals of this revolutionary technology.",
                 action: () => {
                     resetToSingleQubit();
                     setMainQubit('superposition');
@@ -859,14 +962,18 @@
                 6: "Quantum States",
                 7: "Superposition",
                 8: "Quantum Qubits",
-                9: "Quantum Gates",
-                10: "Gate Operations",
+                9: "X Gate",
+                10: "H Gate",
                 11: "Advanced Gates",
-                12: "Measurement",
-                13: "Entanglement",
-                14: "Quantum Correlations",
-                15: "Advanced Concepts",
-                16: "Journey Complete!"
+                12: "Z Gate",
+                13: "Measurement Basics",
+                14: "Measurement Randomness",
+                15: "Creating Entanglement",
+                16: "Entangled Measurement",
+                17: "Why Quantum Matters",
+                18: "Quantum Parallelism",
+                19: "Real Applications",
+                20: "Journey Complete!"
             };
             
             progressText.textContent = progressMessages[currentStep] || "Learning";
@@ -1053,7 +1160,9 @@
         }
         
         function showTwoQubits() {
+            document.getElementById('main-qubit').style.display = 'flex';
             document.getElementById('second-qubit').classList.remove('hidden');
+            document.getElementById('second-qubit').style.display = 'flex';
             setMainQubit('zero');
             setSecondQubit('zero');
         }
