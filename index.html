@@ -734,6 +734,47 @@
                 }
             },
             12: {
+                chapter: "Chapter 4: Quantum Gates",
+                title: "The Z Gate (Phase Flip)",
+                content: "The Z gate applies a phase flip. While it doesn't change |0⟩ or |1⟩ visually, it affects the quantum phase. Click \"Try It\" to see the visual effect!",
+                action: () => {
+                    resetToSingleQubit();
+                    setMainQubit('one');
+                    showGate('Z');
+                    setManualAction(() => applyGate('Z'));
+                }
+            },
+            13: {
+                chapter: "Chapter 5: Quantum Measurement",
+                title: "Measurement Collapses Superposition",
+                content: "When you measure a qubit in superposition, it randomly collapses to either |0⟩ or |1⟩. Click \"Try It\" to measure the qubit and see this random collapse!",
+                action: () => {
+                    resetToSingleQubit();
+                    setMainQubit('superposition');
+                    setManualAction(() => measureQubit());
+                }
+            },
+            14: {
+                chapter: "Chapter 5: Quantum Measurement",
+                title: "Measurement is Random",
+                content: "Each measurement gives a random result! Click \"Try It\" multiple times to see how the same superposition qubit can collapse to different states.",
+                action: () => {
+                    setMainQubit('superposition');
+                    setManualAction(() => measureQubit());
+                }
+            },
+            15: {
+                chapter: "Chapter 6: Quantum Entanglement",
+                title: "Entangled Qubits",
+                content: "When two qubits are entangled, measuring one instantly affects the other, regardless of distance. Click \"Try It\" to see entangled measurement!",
+                action: () => {
+                    resetVisualization();
+                    showTwoQubits();
+                    createEntanglement();
+                    setManualAction(() => measureEntangledPair());
+                }
+            },
+            16: {
                 chapter: "Journey Complete!",
                 title: "🎉 Congratulations!",
                 content: "You've learned the fundamentals of quantum computing: qubits, superposition, measurement, entanglement, and quantum gates. These concepts form the foundation of quantum algorithms and quantum computing's incredible potential!",
