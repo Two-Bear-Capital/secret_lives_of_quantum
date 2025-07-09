@@ -4,223 +4,132 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Secret Lives of Quantum</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    animation: {
+                        'pulse-quantum': 'pulseQuantum 2s infinite',
+                        'spin-entangle': 'spinEntangle 3s infinite linear',
+                        'flow': 'flow 3s linear infinite',
+                        'bounce-celebration': 'bounceCelebration 2s infinite',
+                        'pulse-arrow': 'pulseArrow 1s ease-in-out',
+                        'rotate-sphere': 'rotateSphere 4s infinite linear',
+                        'celebration-flow': 'celebrationFlow 2s infinite',
+                        'firework': 'firework 1.5s ease-out forwards'
+                    },
+                    keyframes: {
+                        pulseQuantum: {
+                            '0%, 100%': { transform: 'scale(1)', boxShadow: '0 4px 12px rgba(124, 58, 237, 0.3)' },
+                            '50%': { transform: 'scale(1.05)', boxShadow: '0 6px 20px rgba(124, 58, 237, 0.4)' }
+                        },
+                        spinEntangle: {
+                            '0%': { transform: 'rotate(0deg)' },
+                            '100%': { transform: 'rotate(360deg)' }
+                        },
+                        flow: {
+                            '0%': { backgroundPosition: '0% 50%' },
+                            '100%': { backgroundPosition: '200% 50%' }
+                        },
+                        bounceCelebration: {
+                            '0%, 100%': { transform: 'translateY(0)' },
+                            '50%': { transform: 'translateY(-20px)' }
+                        },
+                        pulseArrow: {
+                            '0%, 100%': { transform: 'translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1)' },
+                            '50%': { transform: 'translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1.2)' }
+                        },
+                        rotateSphere: {
+                            '0%': { transform: 'rotateY(0deg)' },
+                            '100%': { transform: 'rotateY(360deg)' }
+                        },
+                        celebrationFlow: {
+                            '0%': { opacity: '0', transform: 'translateX(-50px)' },
+                            '50%': { opacity: '1' },
+                            '100%': { opacity: '0', transform: 'translateX(50px)' }
+                        },
+                        firework: {
+                            '0%': { transform: 'translate(0, 0) scale(1)', opacity: '1' },
+                            '100%': { transform: 'translate(var(--x), var(--y)) scale(0)', opacity: '0' }
+                        }
+                    },
+                    maxWidth: {
+                        '8xl': '1400px'
+                    }
+                }
+            }
+        }
+    </script>
     <style>
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            margin: 0;
-            padding: 0;
-            background: #1a1a2e;
-            color: #eee;
-            overflow-x: hidden;
+        /* Custom styles that Tailwind can't handle */
+        .qubit-zero {
+            background: linear-gradient(135deg, #0066cc, #004499);
+        }
+        .qubit-one {
+            background: linear-gradient(135deg, #ff6b6b, #ff4444);
+        }
+        .qubit-superposition {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
         }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
+        .bloch-sphere-bg {
+            background: 
+                radial-gradient(ellipse 60px 40px at 60px 50px, rgba(255, 255, 255, 0.3), transparent 50%),
+                radial-gradient(ellipse at 30% 20%, #f0f4f8, #e5e7eb 40%, #d1d5db 70%, #9ca3af);
         }
         
-        .header {
-            text-align: center;
-            padding: 40px 0;
-            border-bottom: 2px solid #16213e;
+        .bloch-axis-vertical {
+            background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
         }
         
-        .header h1 {
-            font-size: 3em;
-            margin: 0;
-            color: #4fc3f7;
-            text-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
-        }
-        
-        .header p {
-            font-size: 1.2em;
-            margin: 20px 0;
-            color: #bbb;
-        }
-        
-        .alpha-badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff6b6b, #ff8e8e);
-            color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8em;
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-left: 15px;
-            box-shadow: 0 2px 10px rgba(255, 107, 107, 0.3);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        
-        .main-section {
-            margin: 60px 0;
-            padding: 40px;
-            background: rgba(22, 33, 62, 0.3);
-            border-radius: 10px;
-            border: 1px solid rgba(79, 195, 247, 0.2);
-        }
-        
-        .chapter-header {
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        
-        .chapter-number {
-            color: #9c27b0;
-            font-size: 1.2em;
-            font-weight: normal;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        
-        .chapter-title {
-            color: #4fc3f7;
-            font-size: 2.2em;
-            margin: 0;
-            font-weight: bold;
-        }
-        
-        
-        .visualization-area {
-            min-height: 400px;
-            background: rgba(0, 0, 0, 0.3);
-            border: 2px solid #16213e;
-            border-radius: 10px;
-            position: relative;
-            margin: 20px 0;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-        }
-        
-        .qubit {
-            width: 60px;
-            height: 60px;
-            border-radius: 50%;
-            margin: 10px 40px;
-            position: relative;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-        }
-        
-        .qubit.zero {
-            background: radial-gradient(circle, #00bcd4, #0097a7);
-            box-shadow: 0 0 20px rgba(0, 188, 212, 0.5);
-        }
-        
-        .qubit.one {
-            background: radial-gradient(circle, #ff5722, #d84315);
-            box-shadow: 0 0 20px rgba(255, 87, 34, 0.5);
-        }
-        
-        .qubit.superposition {
-            background: radial-gradient(circle, #9c27b0, #7b1fa2);
-            box-shadow: 0 0 20px rgba(156, 39, 176, 0.5);
-            animation: pulse 2s infinite;
-        }
-        
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-        }
-        
-        .controls {
-            text-align: center;
-            margin: 30px 0;
-        }
-        
-        .btn {
-            background: #4fc3f7;
-            color: #1a1a2e;
-            border: none;
-            padding: 12px 24px;
-            margin: 5px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-size: 1em;
-            font-weight: bold;
-            transition: all 0.3s ease;
-        }
-        
-        .btn:hover {
-            background: #29b6f6;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
-        }
-        
-        .btn:disabled {
-            background: #666;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .btn.primary {
-            background: #4caf50;
-        }
-        
-        .btn.primary:hover {
-            background: #45a049;
-        }
-        
-        .explanation {
-            background: rgba(79, 195, 247, 0.1);
-            padding: 20px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #4fc3f7;
-        }
-        
-        .explanation h3 {
-            color: #4fc3f7;
-            margin-top: 0;
+        .bloch-axis-horizontal {
+            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
         }
         
         .entanglement-line {
-            position: absolute;
-            height: 4px;
             background: linear-gradient(90deg, 
                 transparent, 
-                #4fc3f7 20%, 
-                #9c27b0 50%, 
-                #4fc3f7 80%, 
+                #7c3aed 20%, 
+                #0066cc 50%, 
+                #7c3aed 80%, 
                 transparent);
             background-size: 200% 100%;
-            animation: flow 3s linear infinite;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            filter: drop-shadow(0 0 4px rgba(156, 39, 176, 0.6));
-            z-index: 10;
         }
         
-        .entanglement-line.active {
-            opacity: 1;
+        .celebration-line {
+            background: linear-gradient(90deg, transparent, #7c3aed, #0066cc, #7c3aed, transparent);
+        }
+        
+        .celebration-qubit-classical {
+            background: linear-gradient(135deg, #374151, #1f2937);
+        }
+        
+        .celebration-qubit-quantum {
+            background: linear-gradient(135deg, #0066cc, #004499);
+        }
+        
+        .celebration-qubit-entangled {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        }
+        
+        .parallel-qubit-bg {
+            background: linear-gradient(135deg, #7c3aed, #5b21b6);
+        }
+        
+        .firework {
+            animation: firework 1.5s ease-out forwards;
         }
         
         .entanglement-line::before,
         .entanglement-line::after {
             content: '';
             position: absolute;
-            width: 8px;
-            height: 8px;
+            width: 6px;
+            height: 6px;
             border-radius: 50%;
-            background: #9c27b0;
+            background: #7c3aed;
             top: -2px;
-            box-shadow: 0 0 10px rgba(156, 39, 176, 0.8);
         }
         
         .entanglement-line::before {
@@ -231,126 +140,25 @@
             right: -4px;
         }
         
-        @keyframes flow {
-            0% { background-position: 0% 50%; }
-            100% { background-position: 200% 50%; }
-        }
-        
-        .quantum-gate {
-            width: 80px;
-            height: 40px;
-            background: #4fc3f7;
-            color: #1a1a2e;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            margin: 10px;
-            opacity: 0.5;
-        }
-        
-        .quantum-gate.active {
-            opacity: 1;
-        }
-        
-        .quantum-gate:hover {
-            background: #29b6f6;
-            transform: scale(1.1);
-        }
-        
-        .hidden {
-            display: none !important;
-        }
-        
-        #second-qubit {
-            display: none;
-        }
-        
-        #second-qubit:not(.hidden) {
-            display: flex !important;
-        }
-        
-        .progress-bar {
-            width: 100%;
-            height: 4px;
-            background: #333;
-            border-radius: 2px;
-            margin: 20px 0;
-            overflow: hidden;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #4fc3f7, #9c27b0);
-            width: 0%;
-            transition: width 0.5s ease;
-        }
-        
-        .progress-info {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-top: 10px;
-        }
-        
-        .slide-counter {
-            color: #4fc3f7;
-            font-size: 0.9em;
-            font-weight: bold;
-        }
-        
-        .progress-text {
-            color: #999;
-            font-size: 0.8em;
-        }
-        
-        .bloch-sphere {
-            width: 200px;
-            height: 200px;
-            border-radius: 50%;
-            background: 
-                radial-gradient(ellipse 60px 40px at 60px 50px, rgba(255, 255, 255, 0.4), transparent 50%),
-                radial-gradient(ellipse at 30% 20%, rgba(79, 195, 247, 0.6), rgba(79, 195, 247, 0.2) 40%, rgba(22, 33, 62, 0.8) 70%, rgba(10, 15, 30, 0.9));
-            border: 2px solid rgba(79, 195, 247, 0.3);
-            position: relative;
-            margin: 20px auto;
-            display: none;
-            box-shadow: 
-                inset -20px -20px 40px rgba(0, 0, 0, 0.3),
-                inset 10px 10px 20px rgba(79, 195, 247, 0.2),
-                0 10px 30px rgba(0, 0, 0, 0.4);
-        }
-        
-        .bloch-sphere.active {
-            display: block;
-        }
-        
-        .bloch-axis {
+        .bloch-vector::after {
+            content: '';
             position: absolute;
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.2));
-            border-radius: 1px;
-            box-shadow: 0 0 3px rgba(255, 255, 255, 0.3);
+            top: -5px;
+            left: -2px;
+            width: 0;
+            height: 0;
+            border-left: 4px solid transparent;
+            border-right: 4px solid transparent;
+            border-bottom: 8px solid #7c3aed;
+            transition: all 0.5s ease;
         }
         
-        .bloch-axis.vertical {
-            width: 2px;
-            height: 180px;
-            left: 50%;
-            top: 10px;
-            transform: translateX(-50%);
-            background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
-        }
-        
-        .bloch-axis.horizontal {
-            width: 180px;
-            height: 2px;
-            top: 50%;
-            left: 10px;
-            transform: translateY(-50%);
-            background: linear-gradient(90deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.2));
+        .bloch-vector.highlighted::after {
+            left: -3px;
+            border-left: 5px solid transparent;
+            border-right: 5px solid transparent;
+            border-bottom: 10px solid #5b21b6;
+            filter: drop-shadow(0 0 5px rgba(124, 58, 237, 0.5));
         }
         
         .bloch-axis::before {
@@ -373,584 +181,140 @@
             right: -3px;
             top: -2px;
         }
-        
-        .bloch-vector {
-            position: absolute;
-            width: 3px;
-            height: 80px;
-            background: #ff5722;
-            border-radius: 2px;
-            left: 50%;
-            top: 50%;
-            transform-origin: bottom center;
-            transform: translateX(-50%) translateY(-100%) rotateZ(0deg);
-            transition: all 0.5s ease;
-            box-shadow: 0 0 10px rgba(255, 87, 34, 0.5);
-            display: none;
-        }
-        
-        .bloch-vector.active {
-            display: block;
-        }
-        
-        .bloch-vector.highlighted {
-            width: 5px;
-            height: 90px;
-            background: #ff6b1a;
-            box-shadow: 0 0 20px rgba(255, 87, 34, 0.8), 0 0 40px rgba(255, 87, 34, 0.4);
-            animation: pulse-arrow 1s ease-in-out;
-        }
-        
-        .bloch-vector::after {
-            content: '';
-            position: absolute;
-            top: -5px;
-            left: -2px;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-bottom: 8px solid #ff5722;
-            transition: all 0.5s ease;
-        }
-        
-        .bloch-vector.highlighted::after {
-            left: -3px;
-            border-left: 5px solid transparent;
-            border-right: 5px solid transparent;
-            border-bottom: 10px solid #ff6b1a;
-            filter: drop-shadow(0 0 5px rgba(255, 87, 34, 0.8));
-        }
-        
-        @keyframes pulse-arrow {
-            0%, 100% { transform: translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1); }
-            50% { transform: translateX(-50%) translateY(-100%) rotateZ(0deg) scale(1.2); }
-        }
-        
-        .bloch-labels {
-            position: absolute;
-            color: #4fc3f7;
-            font-weight: bold;
-            font-size: 1em;
-            text-shadow: 0 0 5px rgba(79, 195, 247, 0.8), 0 1px 2px rgba(0, 0, 0, 0.8);
-            background: rgba(0, 0, 0, 0.3);
-            padding: 2px 6px;
-            border-radius: 3px;
-            border: 1px solid rgba(79, 195, 247, 0.3);
-        }
-        
-        .bloch-labels.top {
-            top: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .bloch-labels.bottom {
-            bottom: -35px;
-            left: 50%;
-            transform: translateX(-50%);
-        }
-        
-        .classical-bit {
-            width: 50px;
-            height: 50px;
-            border-radius: 5px;
-            margin: 10px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.5em;
-            color: #fff;
-            transition: all 0.3s ease;
-            cursor: pointer;
-        }
-        
-        .classical-bit.zero {
-            background: #333;
-            border: 2px solid #666;
-        }
-        
-        .classical-bit.one {
-            background: #4fc3f7;
-            border: 2px solid #29b6f6;
-            box-shadow: 0 0 15px rgba(79, 195, 247, 0.5);
-        }
-        
-        .classical-bit:hover {
-            transform: scale(1.1);
-        }
-        
-        .binary-display {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .binary-display.active {
-            display: flex;
-        }
-        
-        .bit-row {
-            display: flex;
-            gap: 10px;
-            align-items: center;
-        }
-        
-        .bit-box {
-            width: 40px;
-            height: 40px;
-            border-radius: 5px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: #fff;
-            transition: all 0.3s ease;
-        }
-        
-        .bit-box.zero {
-            background: #333;
-            border: 2px solid #666;
-        }
-        
-        .bit-box.one {
-            background: #4fc3f7;
-            border: 2px solid #29b6f6;
-            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
-        }
-        
-        .equals-sign {
-            font-size: 1.5em;
-            color: #4fc3f7;
-            margin: 0 10px;
-        }
-        
-        .result-display {
-            font-size: 2em;
-            color: #4fc3f7;
-            font-weight: bold;
-            min-width: 60px;
-            text-align: center;
-        }
-        
-        .binary-label {
-            font-size: 0.8em;
-            color: #999;
-            margin-top: 5px;
-        }
-        
-        .result-area {
-            background: rgba(156, 39, 176, 0.1);
-            padding: 15px;
-            border-radius: 8px;
-            margin: 20px 0;
-            border-left: 4px solid #9c27b0;
-            min-height: 50px;
-            display: none;
-        }
-        
-        .result-area.active {
-            display: block;
-        }
-        
-        .result-area h4 {
-            color: #9c27b0;
-            margin: 0 0 10px 0;
-            font-size: 1em;
-        }
-        
-        .result-area p {
-            margin: 0;
-            font-size: 0.9em;
-            white-space: pre-line;
-        }
-        
-        .celebration-container {
-            display: none;
-            position: relative;
-            width: 100%;
-            height: 100%;
-            justify-content: center;
-            align-items: center;
-            flex-wrap: wrap;
-            gap: 30px;
-        }
-        
-        .celebration-container.active {
-            display: flex;
-        }
-        
-        .celebration-qubit {
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            position: relative;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: all 0.5s ease;
-        }
-        
-        .celebration-qubit.classical {
-            background: #333;
-            border: 2px solid #666;
-            animation: bounce 2s infinite;
-        }
-        
-        .celebration-qubit.quantum {
-            background: radial-gradient(circle, #4fc3f7, #2196f3);
-            box-shadow: 0 0 30px rgba(79, 195, 247, 0.8);
-            animation: quantumPulse 2s infinite;
-        }
-        
-        .celebration-qubit.entangled {
-            background: radial-gradient(circle, #9c27b0, #7b1fa2);
-            box-shadow: 0 0 30px rgba(156, 39, 176, 0.8);
-            animation: entangleSpin 3s infinite linear;
-        }
-        
-        .celebration-sphere {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: 
-                radial-gradient(ellipse 40px 30px at 40px 35px, rgba(255, 255, 255, 0.5), transparent 50%),
-                radial-gradient(ellipse at 30% 20%, rgba(79, 195, 247, 0.8), rgba(79, 195, 247, 0.3) 40%, rgba(22, 33, 62, 0.9));
-            border: 2px solid rgba(79, 195, 247, 0.5);
-            position: relative;
-            animation: rotateSphere 4s infinite linear;
-            box-shadow: 
-                inset -15px -15px 30px rgba(0, 0, 0, 0.4),
-                inset 8px 8px 15px rgba(79, 195, 247, 0.3),
-                0 0 40px rgba(79, 195, 247, 0.6);
-        }
-        
-        .celebration-line {
-            position: absolute;
-            height: 2px;
-            width: 100px;
-            background: linear-gradient(90deg, transparent, #4fc3f7, #9c27b0, #4fc3f7, transparent);
-            opacity: 0;
-            animation: celebrationFlow 2s infinite;
-        }
-        
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-20px); }
-        }
-        
-        @keyframes quantumPulse {
-            0%, 100% { transform: scale(1); box-shadow: 0 0 30px rgba(79, 195, 247, 0.8); }
-            50% { transform: scale(1.2); box-shadow: 0 0 50px rgba(79, 195, 247, 1); }
-        }
-        
-        @keyframes entangleSpin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
-        }
-        
-        @keyframes rotateSphere {
-            0% { transform: rotateY(0deg); }
-            100% { transform: rotateY(360deg); }
-        }
-        
-        @keyframes celebrationFlow {
-            0% { opacity: 0; transform: translateX(-50px); }
-            50% { opacity: 1; }
-            100% { opacity: 0; transform: translateX(50px); }
-        }
-        
-        .firework {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            border-radius: 50%;
-            animation: firework 1.5s ease-out forwards;
-        }
-        
-        @keyframes firework {
-            0% {
-                transform: translate(0, 0) scale(1);
-                opacity: 1;
-            }
-            100% {
-                transform: translate(var(--x), var(--y)) scale(0);
-                opacity: 0;
-            }
-        }
-        
-        .classical-search {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .classical-search.active {
-            display: flex;
-        }
-        
-        .search-grid {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 15px;
-        }
-        
-        .search-row {
-            display: flex;
-            gap: 5px;
-            padding: 5px;
-            border-radius: 5px;
-            transition: all 0.3s ease;
-        }
-        
-        .search-row.checking {
-            background: rgba(255, 193, 7, 0.2);
-            transform: scale(1.05);
-        }
-        
-        .search-row.checked {
-            opacity: 0.3;
-        }
-        
-        .search-row.found {
-            background: rgba(76, 175, 80, 0.3);
-            transform: scale(1.1);
-            box-shadow: 0 0 20px rgba(76, 175, 80, 0.6);
-        }
-        
-        .search-bit {
-            width: 30px;
-            height: 30px;
-            border-radius: 3px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-        }
-        
-        .search-bit.zero {
-            background: #333;
-            color: #999;
-        }
-        
-        .search-bit.one {
-            background: #4fc3f7;
-            color: #fff;
-            box-shadow: 0 0 10px rgba(79, 195, 247, 0.5);
-        }
-        
-        .quantum-parallel {
-            display: none;
-            flex-direction: column;
-            align-items: center;
-            gap: 20px;
-        }
-        
-        .quantum-parallel.active {
-            display: flex;
-        }
-        
-        .parallel-title {
-            font-size: 1.3em;
-            color: #9c27b0;
-            font-weight: bold;
-            text-align: center;
-            margin-bottom: 10px;
-        }
-        
-        .parallel-qubits {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
-            margin: 20px 0;
-        }
-        
-        .parallel-qubit {
-            width: 80px;
-            height: 80px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #4fc3f7, #9c27b0);
-            border: 3px solid #fff;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 1.2em;
-            color: white;
-            position: relative;
-            animation: quantumPulse 2s infinite;
-        }
-        
-        @keyframes quantumPulse {
-            0% { transform: scale(1); box-shadow: 0 0 20px rgba(156, 39, 176, 0.3); }
-            50% { transform: scale(1.1); box-shadow: 0 0 40px rgba(156, 39, 176, 0.8); }
-            100% { transform: scale(1); box-shadow: 0 0 20px rgba(156, 39, 176, 0.3); }
-        }
-        
-        .parallel-explanation {
-            background: rgba(156, 39, 176, 0.1);
-            padding: 20px;
-            border-radius: 10px;
-            border: 2px solid #9c27b0;
-            max-width: 600px;
-            text-align: center;
-        }
-        
-        .parallel-states {
-            display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
-            margin: 20px 0;
-        }
-        
-        .parallel-state {
-            background: rgba(156, 39, 176, 0.2);
-            padding: 5px;
-            border-radius: 5px;
-            text-align: center;
-            font-size: 0.9em;
-            transition: all 0.3s ease;
-        }
-        
-        .parallel-state.highlight {
-            background: rgba(76, 175, 80, 0.3);
-            transform: scale(1.05);
-            box-shadow: 0 0 15px rgba(76, 175, 80, 0.6);
-        }
-        
-        .search-counter {
-            font-size: 1.2em;
-            color: #4fc3f7;
-            font-weight: bold;
-        }
-        
-        .target-display {
-            background: rgba(76, 175, 80, 0.2);
-            padding: 10px 20px;
-            border-radius: 5px;
-            border: 2px solid #4caf50;
-        }
-        
-        .target-display span {
-            color: #4caf50;
-            font-weight: bold;
-            font-size: 1.1em;
-        }
     </style>
 </head>
-<body>
-    <div class="container">
-        <div class="header">
-            <h1>The Secret Lives of Quantum <span class="alpha-badge">Alpha</span></h1>
-            <p>Understanding quantum computing through interactive visualization</p>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progress-fill"></div>
+<body class="bg-white text-gray-900 font-sans leading-relaxed">
+    <div class="max-w-8xl mx-auto px-5">
+        <div class="text-center py-8 border-b border-gray-200">
+            <h1 class="text-3xl font-bold text-gray-900 tracking-tight">
+                The Secret Lives of Quantum 
+                <span class="inline-block bg-red-500 text-white px-2 py-1 rounded text-xs font-semibold uppercase tracking-wide ml-2 align-super">Alpha</span>
+            </h1>
+            <p class="text-sm text-gray-600 mt-2">Understanding quantum computing through interactive visualization</p>
+            <div class="w-full h-1 bg-gray-200 rounded-full mt-5 mb-3 overflow-hidden">
+                <div class="h-full bg-gray-900 transition-all duration-500 ease-out" id="progress-fill" style="width: 0%;"></div>
             </div>
-            <div class="progress-info">
-                <div class="slide-counter" id="slide-counter">Step 1 of 16</div>
-                <div class="progress-text" id="progress-text">Getting Started</div>
+            <div class="flex justify-between items-center text-sm">
+                <div class="text-gray-600 font-medium" id="slide-counter">Step 1 of 21</div>
+                <div class="text-gray-500" id="progress-text">Getting Started</div>
             </div>
         </div>
         
-        <div class="main-section">
-            <div class="chapter-header">
-                <div class="chapter-number" id="chapter-number">Chapter 1</div>
-                <h2 class="chapter-title" id="chapter-title">Classical Computing</h2>
+        <div class="my-8">
+            <div class="text-left mb-6 px-10">
+                <div class="text-gray-500 text-sm font-medium uppercase tracking-widest mb-2" id="chapter-number">Chapter 1</div>
+                <h2 class="text-3xl font-bold text-gray-900 tracking-tight" id="chapter-title">Classical Computing</h2>
             </div>
             
-            <div class="visualization-area" id="visualization-area">
-                <div class="classical-bit zero" id="classical-bit">0</div>
-                <div class="binary-display" id="binary-display">
-                    <div class="bit-row">
-                        <div class="bit-box zero" id="bit-0">0</div>
-                        <div class="bit-box one" id="bit-1">1</div>
-                        <div class="bit-box zero" id="bit-2">0</div>
-                        <div class="bit-box zero" id="bit-3">0</div>
-                        <div class="bit-box zero" id="bit-4">0</div>
-                        <div class="bit-box zero" id="bit-5">0</div>
-                        <div class="bit-box zero" id="bit-6">0</div>
-                        <div class="bit-box one" id="bit-7">1</div>
-                        <span class="equals-sign">=</span>
-                        <div class="result-display" id="result">A</div>
+            <div class="bg-gray-50 border border-gray-200 rounded-lg mx-10 mb-6 px-8 py-6 border-l-4 border-l-purple-600" id="step-explanation">
+                <p class="text-gray-700 leading-relaxed" id="step-content">Welcome! Let's start with the basics: classical bits. These are the foundation of all digital computing. Click "Try It" to see how a classical bit works - it can only be 0 or 1, nothing in between.</p>
+            </div>
+            
+            <div class="min-h-[450px] bg-gray-50 border border-gray-200 rounded-lg relative mx-10 mb-8 flex justify-center items-center flex-wrap shadow-sm" id="visualization-area">
+                <!-- Classical Bit -->
+                <div class="w-15 h-15 rounded-lg mx-2 flex items-center justify-center font-semibold text-lg transition-all duration-300 cursor-pointer hidden bg-gray-100 border-2 border-gray-200 text-gray-600" id="classical-bit">0</div>
+                
+                <!-- Binary Display -->
+                <div class="hidden flex-col items-center gap-5" id="binary-display">
+                    <div class="flex gap-2 items-center">
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-0">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-900 border-2 border-gray-900 flex items-center justify-center font-semibold text-sm text-white transition-all duration-300 shadow-sm" id="bit-1">1</div>
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-2">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-3">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-4">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-5">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300" id="bit-6">0</div>
+                        <div class="w-11 h-11 rounded bg-gray-900 border-2 border-gray-900 flex items-center justify-center font-semibold text-sm text-white transition-all duration-300 shadow-sm" id="bit-7">1</div>
+                        <span class="text-xl text-gray-600 font-medium mx-4">=</span>
+                        <div class="text-3xl text-gray-900 font-bold min-w-[60px] text-center" id="result">A</div>
                     </div>
-                    <div class="binary-label">ASCII Binary (01000001 = 65 = 'A')</div>
+                    <div class="text-sm text-gray-500 font-medium mt-2">ASCII Binary (01000001 = 65 = 'A')</div>
                 </div>
-                <div class="bloch-sphere" id="bloch-sphere">
-                    <div class="bloch-axis vertical"></div>
-                    <div class="bloch-axis horizontal"></div>
-                    <div class="bloch-vector" id="bloch-vector"></div>
-                    <div class="bloch-labels top">|0⟩</div>
-                    <div class="bloch-labels bottom">|1⟩</div>
+                
+                <!-- Bloch Sphere -->
+                <div class="w-50 h-50 rounded-full border-2 border-gray-300 relative mx-5 my-5 hidden bloch-sphere-bg shadow-inner" id="bloch-sphere">
+                    <div class="bloch-axis vertical absolute w-0.5 h-45 left-1/2 top-2.5 -translate-x-1/2 rounded-sm shadow-sm"></div>
+                    <div class="bloch-axis horizontal absolute w-45 h-0.5 top-1/2 left-2.5 -translate-y-1/2 rounded-sm shadow-sm"></div>
+                    
+                    <div class="absolute w-1 h-20 bg-purple-600 rounded-sm left-1/2 top-1/2 origin-bottom -translate-x-1/2 -translate-y-full transition-all duration-500 shadow-lg hidden" id="bloch-vector" style="transform: translateX(-50%) translateY(-100%) rotateZ(0deg);"></div>
+                    
+                    <div class="absolute text-gray-700 font-semibold text-sm bg-white/90 px-2 py-1 rounded shadow-sm -top-9 left-1/2 -translate-x-1/2">|0⟩</div>
+                    <div class="absolute text-gray-700 font-semibold text-sm bg-white/90 px-2 py-1 rounded shadow-sm -bottom-9 left-1/2 -translate-x-1/2">|1⟩</div>
                 </div>
-                <div class="qubit zero" id="main-qubit">|0⟩</div>
-                <div class="qubit zero hidden" id="second-qubit">|0⟩</div>
-                <div class="entanglement-line" id="entanglement-line"></div>
-                <div class="quantum-gate" id="gate-x">X</div>
-                <div class="quantum-gate" id="gate-h">H</div>
-                <div class="quantum-gate" id="gate-z">Z</div>
-                <div class="celebration-container" id="celebration-container">
-                    <div class="celebration-qubit classical" id="cele-classical">0</div>
-                    <div class="celebration-sphere" id="cele-sphere"></div>
-                    <div class="celebration-qubit quantum" id="cele-quantum">|+⟩</div>
-                    <div class="celebration-qubit entangled" id="cele-entangled1">|Ψ⟩</div>
-                    <div class="celebration-qubit entangled" id="cele-entangled2">|Ψ⟩</div>
-                    <div class="celebration-line" id="cele-line1"></div>
-                    <div class="celebration-line" id="cele-line2"></div>
+                
+                <!-- Main Qubit -->
+                <div class="w-20 h-20 rounded-full mx-5 relative cursor-pointer transition-all duration-300 flex items-center justify-center font-semibold text-lg text-white hidden" id="main-qubit">|0⟩</div>
+                
+                <!-- Second Qubit -->
+                <div class="w-20 h-20 rounded-full mx-5 relative cursor-pointer transition-all duration-300 flex items-center justify-center font-semibold text-lg text-white hidden" id="second-qubit">|0⟩</div>
+                
+                <!-- Entanglement Line -->
+                <div class="absolute h-0.5 w-25 entanglement-line animate-flow opacity-0 transition-opacity duration-500 z-10" id="entanglement-line"></div>
+                
+                <!-- Quantum Gates -->
+                <div class="w-24 h-12 bg-white border-2 border-gray-200 rounded flex items-center justify-center font-semibold text-lg cursor-pointer transition-all duration-200 mx-2 opacity-50 hover:bg-gray-50 hover:scale-105 hover:shadow-sm" id="x-gate" style="display: none;">X</div>
+                <div class="w-24 h-12 bg-white border-2 border-gray-200 rounded flex items-center justify-center font-semibold text-lg cursor-pointer transition-all duration-200 mx-2 opacity-50 hover:bg-gray-50 hover:scale-105 hover:shadow-sm" id="h-gate" style="display: none;">H</div>
+                <div class="w-24 h-12 bg-white border-2 border-gray-200 rounded flex items-center justify-center font-semibold text-lg cursor-pointer transition-all duration-200 mx-2 opacity-50 hover:bg-gray-50 hover:scale-105 hover:shadow-sm" id="z-gate" style="display: none;">Z</div>
+                
+                <!-- Measurement Qubits -->
+                <div class="w-16 h-16 rounded-full mx-2 flex items-center justify-center font-semibold text-base text-white border-4 border-white hidden" id="measurement-qubit1">|0⟩</div>
+                <div class="w-16 h-16 rounded-full mx-2 flex items-center justify-center font-semibold text-base text-white border-4 border-white hidden" id="measurement-qubit2">|1⟩</div>
+                
+                <!-- Celebration Container -->
+                <div class="hidden relative w-full h-full justify-center items-center flex-wrap gap-8" id="celebration-container">
+                    <div class="w-15 h-15 rounded-full relative flex items-center justify-center font-semibold text-sm transition-all duration-500 text-white shadow-lg celebration-qubit-classical animate-bounce-celebration">0</div>
+                    <div class="w-30 h-30 rounded-full relative animate-rotate-sphere bloch-sphere-bg border-2 border-gray-300 shadow-xl"></div>
+                    <div class="w-15 h-15 rounded-full relative flex items-center justify-center font-semibold text-sm transition-all duration-500 text-white shadow-lg celebration-qubit-quantum animate-pulse-quantum">|Ψ⟩</div>
+                    <div class="w-15 h-15 rounded-full relative flex items-center justify-center font-semibold text-sm transition-all duration-500 text-white shadow-lg celebration-qubit-entangled animate-spin-entangle" id="cele-entangled1">|Ψ⟩</div>
+                    <div class="w-15 h-15 rounded-full relative flex items-center justify-center font-semibold text-sm transition-all duration-500 text-white shadow-lg celebration-qubit-entangled animate-spin-entangle" id="cele-entangled2">|Ψ⟩</div>
+                    <div class="celebration-line absolute h-0.5 w-25 opacity-0 animate-celebration-flow" id="cele-line1"></div>
+                    <div class="celebration-line absolute h-0.5 w-25 opacity-0 animate-celebration-flow" id="cele-line2"></div>
                 </div>
-                <div class="classical-search" id="classical-search">
-                    <div class="target-display">
-                        🎯 Searching for pattern: <span>1011</span>
+                
+                <!-- Classical Search -->
+                <div class="hidden flex-col items-center gap-5" id="classical-search">
+                    <div class="bg-green-100 px-6 py-3 rounded border-2 border-green-500 font-medium">
+                        🎯 Searching for pattern: <span class="text-green-700 font-bold text-lg">1011</span>
                     </div>
-                    <div class="search-counter" id="search-counter">Combinations checked: 0 / 16</div>
-                    <div class="search-grid" id="search-grid">
+                    <div class="text-lg text-gray-600 font-semibold" id="search-counter">Combinations checked: 0 / 16</div>
+                    <div class="grid grid-cols-4 gap-4" id="search-grid">
                         <!-- Will be populated by JavaScript -->
                     </div>
                 </div>
-                <div class="quantum-parallel" id="quantum-parallel">
-                    <div class="parallel-title">🚀 Quantum Parallelism: All States Explored Simultaneously</div>
-                    <div class="parallel-qubits">
-                        <div class="parallel-qubit" id="parallel-qubit1">|0⟩+|1⟩</div>
-                        <div class="parallel-qubit" id="parallel-qubit2">|0⟩+|1⟩</div>
-                        <div class="parallel-qubit" id="parallel-qubit3">|0⟩+|1⟩</div>
-                        <div class="parallel-qubit" id="parallel-qubit4">|0⟩+|1⟩</div>
+                
+                <!-- Quantum Parallel -->
+                <div class="hidden flex-col items-center gap-5" id="quantum-parallel">
+                    <div class="text-xl text-gray-900 font-semibold text-center mb-5">🚀 Quantum Parallelism: All States Explored Simultaneously</div>
+                    <div class="flex gap-5 justify-center my-5">
+                        <div class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center font-semibold text-lg text-white relative animate-pulse-quantum parallel-qubit-bg shadow-lg" id="parallel-qubit1">|0⟩+|1⟩</div>
+                        <div class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center font-semibold text-lg text-white relative animate-pulse-quantum parallel-qubit-bg shadow-lg" id="parallel-qubit2">|0⟩+|1⟩</div>
+                        <div class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center font-semibold text-lg text-white relative animate-pulse-quantum parallel-qubit-bg shadow-lg" id="parallel-qubit3">|0⟩+|1⟩</div>
+                        <div class="w-20 h-20 rounded-full border-4 border-white flex items-center justify-center font-semibold text-lg text-white relative animate-pulse-quantum parallel-qubit-bg shadow-lg" id="parallel-qubit4">|0⟩+|1⟩</div>
                     </div>
-                    <div class="parallel-explanation">
-                        <div class="parallel-states" id="parallel-states">
+                    <div class="bg-gray-50 px-6 py-5 rounded-lg border border-gray-200 max-w-2xl text-center shadow-sm">
+                        <div class="grid grid-cols-4 gap-2 my-5" id="parallel-states">
                             <!-- Will be populated by JavaScript -->
                         </div>
-                        <div style="margin-top: 15px; font-size: 1.1em; color: #9c27b0; font-weight: bold;">
+                        <div class="mt-4 text-lg text-purple-600 font-bold">
                             ⚡ Quantum Advantage: Check all 16 combinations in a single operation!
                         </div>
                     </div>
                 </div>
             </div>
             
-            <div class="controls">
-                <button class="btn" id="prev-btn" onclick="prevStep()">Previous Step</button>
-                <button class="btn" id="manual-btn" onclick="performManualAction()">Try It</button>
-                <button class="btn primary" id="next-btn" onclick="nextStep()">Next Step</button>
-            </div>
-            
-            <div class="explanation" id="explanation">
-                <h3>What is a Classical Bit?</h3>
-                <p>All computers today use bits - the fundamental unit of information. A classical bit can only be in one of two states: 0 or 1. Click "Try It" to toggle between these two states.</p>
-            </div>
-            
-            <div class="result-area" id="result-area">
-                <h4>Try It Result</h4>
-                <p id="result-text">Click "Try It" to see the result here!</p>
+            <div class="text-center my-8 px-10 flex justify-center gap-3">
+                <button class="bg-white text-gray-900 border-2 border-gray-200 px-7 py-3 rounded font-semibold text-sm transition-all duration-200 min-w-[140px] hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 hover:shadow-sm disabled:bg-gray-100 disabled:text-gray-500 disabled:border-gray-200 disabled:cursor-not-allowed disabled:transform-none" id="prev-btn" onclick="prevStep()">Previous Step</button>
+                <button class="bg-white text-gray-900 border-2 border-gray-200 px-7 py-3 rounded font-semibold text-sm transition-all duration-200 min-w-[140px] hover:bg-gray-50 hover:border-gray-300 hover:-translate-y-0.5 hover:shadow-sm" id="manual-btn" onclick="performManualAction()">Try It</button>
+                <button class="bg-gray-900 text-white border-2 border-gray-900 px-7 py-3 rounded font-semibold text-sm transition-all duration-200 min-w-[140px] hover:bg-gray-700 hover:border-gray-700 hover:-translate-y-0.5 hover:shadow-sm" id="next-btn" onclick="nextStep()">Next Step</button>
             </div>
         </div>
+        
+        <div class="bg-gray-50 border border-gray-200 rounded-lg mx-10 mb-6 px-8 py-5 border-l-4 border-l-purple-600 hidden shadow-sm" id="result-area">
+            <h4 class="text-lg font-semibold text-gray-900 mb-3">Try It Result</h4>
+            <p class="text-gray-700 leading-relaxed whitespace-pre-line" id="result-text">Click "Try It" to see the result here!</p>
+        </div>
     </div>
-    
+
     <script>
         let currentStep = 1;
         let isEntangled = false;
@@ -964,200 +328,268 @@
                 action: () => {
                     resetVisualization();
                     showClassicalBit();
-                    setClassicalBit('zero');
-                    let currentBitState = 'zero';
+                    let bitState = 0;
                     setManualAction(() => {
-                        currentBitState = currentBitState === 'zero' ? 'one' : 'zero';
-                        setClassicalBit(currentBitState);
-                        showResult(`The bit is now in state ${currentBitState === 'zero' ? '0' : '1'}. Classical bits can only be in one of these two definite states at any time.`, "Bit State");
+                        bitState = 1 - bitState;
+                        setClassicalBit(bitState);
+                        showResult(`The bit is now: ${bitState}\n\nClassical bits are deterministic - they are always in exactly one state: either 0 or 1, never both.`, "Classical Bit State");
                     });
                 }
             },
             2: {
                 chapter: "Chapter 1: Classical Computing",
-                title: "Flipping to 1",
-                content: "Classical bits can be flipped between 0 and 1 states. This is the foundation of all digital logic. Click \"Try It\" to flip this bit to 1.",
+                title: "Building with Bits",
+                content: "Multiple bits combine to represent larger numbers and data. Let's see how 8 bits (a byte) can represent letters and symbols using ASCII encoding.",
                 action: () => {
-                    setClassicalBit('zero');
+                    resetVisualization();
+                    showBinaryDisplay();
+                    let patterns = [
+                        {bits: [0,1,0,0,0,0,0,1], char: 'A', desc: 'Letter A'},
+                        {bits: [0,1,0,0,0,0,1,0], char: 'B', desc: 'Letter B'},
+                        {bits: [0,1,0,0,0,0,1,1], char: 'C', desc: 'Letter C'},
+                        {bits: [0,0,1,0,0,0,0,1], char: '!', desc: 'Exclamation'}
+                    ];
+                    let currentPattern = 0;
+                    
                     setManualAction(() => {
-                        setClassicalBit('one');
-                        showResult("Great! You've flipped the bit to 1. Classical computers manipulate millions of these bits to perform calculations.", "Bit Flipped!");
+                        setBinaryPatternSilent(patterns[currentPattern].bits, patterns[currentPattern].char);
+                        showResult(`8 bits forming: ${patterns[currentPattern].char} (${patterns[currentPattern].desc})\\n\\nBinary: ${patterns[currentPattern].bits.join('')}\\nDecimal: ${parseInt(patterns[currentPattern].bits.join(''), 2)}\\nCharacter: ${patterns[currentPattern].char}`, "Binary to ASCII");
+                        currentPattern = (currentPattern + 1) % patterns.length;
                     });
                 }
             },
             3: {
-                chapter: "Chapter 1: Classical Computing",
-                title: "Binary Information",
-                content: "Multiple bits combine to represent human-readable information. Here's how 8 bits (1 byte) represent the letter 'A'. Click \"Try It\" to see different letters!",
+                chapter: "Chapter 2: Introduction to Quantum",
+                title: "The Bloch Sphere",
+                content: "Enter the quantum world! Quantum bits (qubits) are visualized using the Bloch sphere - a 3D representation where the top is |0⟩, bottom is |1⟩, and everywhere else represents quantum superposition.",
                 action: () => {
                     resetVisualization();
-                    showBinaryDisplay();
-                    setBinaryPatternSilent('A'); // Set up silently without showing result
+                    showBlochSphere();
                     setManualAction(() => {
-                        const patterns = ['A', 'B', 'C', '?', '!'];
-                        const currentIndex = patterns.indexOf(document.getElementById('result').textContent);
-                        const nextIndex = (currentIndex + 1) % patterns.length;
-                        setBinaryPattern(patterns[nextIndex]);
+                        showResult("🌐 The Bloch Sphere represents all possible qubit states:\\n\\n• North Pole (top): |0⟩ state\\n• South Pole (bottom): |1⟩ state\\n• Equator: Maximum superposition states\\n• Any point: A unique quantum state\\n\\nUnlike classical bits, qubits can exist anywhere on this sphere!", "Quantum State Space");
                     });
                 }
             },
             4: {
                 chapter: "Chapter 2: Introduction to Quantum",
-                title: "Enter the Quantum World",
-                content: "Quantum mechanics reveals that at the smallest scales, particles behave differently. A quantum bit (qubit) can exist in states that classical bits cannot. Let's explore this with the Bloch sphere.",
+                title: "The Quantum Bit (Qubit)",
+                content: "A qubit starts in the |0⟩ state, just like a classical bit. But here's where quantum mechanics gets interesting - qubits can do things classical bits cannot!",
                 action: () => {
                     resetVisualization();
                     showBlochSphere();
+                    showMainQubit();
+                    setMainQubit('zero');
                     setManualAction(() => {
-                        const sphere = document.getElementById('bloch-sphere');
-                        sphere.style.transform = 'scale(1.1)';
-                        setTimeout(() => {
-                            sphere.style.transform = 'scale(1)';
-                        }, 300);
+                        showBlochVector();
+                        showResult("🔮 This qubit is in the |0⟩ state, pointing to the north pole of the Bloch sphere.\\n\\nThe arrow shows the qubit's state vector. Right now it's classical - definite and measurable.", "Qubit in |0⟩ State");
                     });
                 }
             },
             5: {
-                chapter: "Chapter 2: The Bloch Sphere",
-                title: "Qubit State |0⟩",
-                content: "The Bloch sphere represents all possible qubit states. The north pole represents |0⟩ - equivalent to classical 0. The arrow shows the current qubit state.",
+                chapter: "Chapter 2: Introduction to Quantum",
+                title: "Quantum Superposition",
+                content: "Here's where quantum gets weird! A qubit can be in superposition - existing as both |0⟩ AND |1⟩ simultaneously until measured. This is impossible for classical bits!",
                 action: () => {
-                    setBlochVector('north');
+                    resetVisualization();
+                    showBlochSphere();
+                    showMainQubit();
+                    setMainQubit('superposition');
                     setManualAction(() => {
-                        const vector = document.getElementById('bloch-vector');
-                        vector.classList.add('highlighted');
-                        setTimeout(() => {
-                            vector.classList.remove('highlighted');
-                        }, 2000);
-                        showResult("The qubit is in the |0⟩ state, pointing to the north pole. This is the quantum equivalent of classical bit 0.", "Qubit State |0⟩");
+                        highlightBlochVector();
+                        showResult("🌀 Quantum Superposition: |ψ⟩ = α|0⟩ + β|1⟩\\n\\nThe qubit exists in BOTH states simultaneously! The arrow points to the equator, representing maximum superposition.\\n\\nThis is the source of quantum computing's power!", "Superposition State");
                     });
                 }
             },
             6: {
-                chapter: "Chapter 2: The Bloch Sphere",
-                title: "Qubit State |1⟩",
-                content: "The south pole represents |1⟩ - equivalent to classical 1. Click \"Try It\" to flip the qubit to |1⟩ and see the arrow move!",
+                chapter: "Chapter 2: Introduction to Quantum",
+                title: "Quantum States",
+                content: "Qubits can exist in any state on the Bloch sphere. Each position represents a different quantum state with unique properties and probabilities.",
                 action: () => {
-                    setBlochVector('north');
+                    resetVisualization();
+                    showBlochSphere();
+                    showMainQubit();
+                    setMainQubit('superposition');
+                    let rotations = [0, 45, 90, 135, 180, 225, 270, 315];
+                    let currentRotation = 0;
+                    
                     setManualAction(() => {
-                        setBlochVector('south');
-                        showResult("The qubit is now in the |1⟩ state, pointing to the south pole. Notice how the arrow flipped to the opposite pole!", "Qubit State |1⟩");
+                        rotateBlochVector(rotations[currentRotation]);
+                        showBlochVector();
+                        const angle = rotations[currentRotation];
+                        showResult(`🎯 Qubit rotated to ${angle}°\\n\\nEach angle represents a different quantum state:\\n• 0°: |0⟩ state\\n• 90°: |+⟩ superposition state\\n• 180°: |1⟩ state\\n• 270°: |-⟩ superposition state\\n\\nInfinite possibilities on the sphere!`, "Quantum State Rotation");
+                        currentRotation = (currentRotation + 1) % rotations.length;
                     });
                 }
             },
             7: {
-                chapter: "Chapter 2: The Bloch Sphere",
-                title: "Superposition States",
-                content: "🌟 Here's where quantum gets weird! The equator represents superposition - the qubit exists in both |0⟩ and |1⟩ states simultaneously. Click \"Try It\" to see!",
+                chapter: "Chapter 2: Introduction to Quantum",
+                title: "Beyond Classical Computing",
+                content: "We've seen how qubits differ from classical bits. Qubits can exist in superposition and be represented anywhere on the Bloch sphere. This opens up entirely new computational possibilities!",
                 action: () => {
-                    setBlochVector('south');
+                    resetVisualization();
+                    showBlochSphere();
+                    showMainQubit();
+                    setMainQubit('superposition');
+                    showBlochVector();
                     setManualAction(() => {
-                        setBlochVector('equator');
-                        showResult("🌟 The qubit is now in superposition! The arrow points to the equator, representing a state that's both |0⟩ and |1⟩ simultaneously.", "Superposition State");
+                        highlightBlochVector();
+                        showResult("🚀 Quantum vs Classical:\\n\\n📊 Classical: 2 possible states (0 or 1)\\n🌀 Quantum: Infinite states on Bloch sphere\\n\\n💻 Classical: Sequential processing\\n⚡ Quantum: Parallel processing via superposition\\n\\nThis is just the beginning of quantum's advantages!", "Quantum Advantage Preview");
                     });
                 }
             },
             8: {
                 chapter: "Chapter 3: Quantum Qubits",
-                title: "From Bloch Sphere to Qubits",
-                content: "Now let's see how the Bloch sphere translates to actual qubits. Each qubit state corresponds to a position on the sphere. Let's start with |0⟩.",
+                title: "Working with Qubits",
+                content: "Let's interact with qubits directly! We'll start with a single qubit and explore how it behaves compared to classical bits.",
                 action: () => {
-                    hideBlochSphere();
+                    resetVisualization();
                     showMainQubit();
                     setMainQubit('zero');
                     setManualAction(() => {
-                        setMainQubit('zero');
-                        showResult("This qubit is in the |0⟩ state - corresponding to the north pole of the Bloch sphere.", "Qubit |0⟩ State");
+                        if (document.getElementById('main-qubit').classList.contains('zero')) {
+                            setMainQubit('superposition');
+                            showResult("🌀 Qubit in superposition!\\n\\nThe qubit is now in a quantum state: |ψ⟩ = (|0⟩ + |1⟩)/√2\\n\\nIt's simultaneously 0 AND 1 until measured.", "Superposition Created");
+                        } else {
+                            setMainQubit('zero');
+                            showResult("🔮 Qubit in |0⟩ state\\n\\nThe qubit is now in a definite classical state.", "Classical State");
+                        }
                     });
                 }
             },
             9: {
                 chapter: "Chapter 4: Quantum Gates",
                 title: "The X Gate (NOT Gate)",
-                content: "Quantum gates manipulate qubit states. The X gate flips a qubit: |0⟩ → |1⟩ and |1⟩ → |0⟩. Click \"Try It\" to apply an X gate!",
+                content: "Quantum gates manipulate qubit states. The X gate is like a classical NOT gate - it flips |0⟩ to |1⟩ and vice versa. Click the X gate to see it in action!",
                 action: () => {
-                    resetToSingleQubit();
+                    resetVisualization();
+                    showMainQubit();
+                    showQuantumGate('x');
                     setMainQubit('zero');
-                    showGate('X');
-                    setManualAction(() => applyGate('X'));
+                    setManualAction(() => {
+                        applyXGate();
+                        showResult("⚡ X Gate Applied!\\n\\n|0⟩ → |1⟩\\n\\nThe X gate flips the qubit state, just like a classical NOT gate. It rotates the state 180° around the X-axis of the Bloch sphere.", "X Gate Operation");
+                    });
                 }
             },
             10: {
                 chapter: "Chapter 4: Quantum Gates",
-                title: "The H Gate (Hadamard)",
-                content: "The H gate creates superposition! It transforms |0⟩ → |+⟩ (superposition). Click \"Try It\" to apply a Hadamard gate!",
+                title: "The H Gate (Hadamard Gate)",
+                content: "The Hadamard gate creates superposition! It transforms |0⟩ into (|0⟩ + |1⟩)/√2. This gate is unique to quantum computing - there's no classical equivalent.",
                 action: () => {
+                    resetVisualization();
+                    showMainQubit();
+                    showQuantumGate('h');
                     setMainQubit('zero');
-                    showGate('H');
-                    setManualAction(() => applyGate('H'));
+                    setManualAction(() => {
+                        applyHGate();
+                        showResult("🌀 Hadamard Gate Applied!\\n\\n|0⟩ → (|0⟩ + |1⟩)/√2\\n\\nThe qubit is now in perfect superposition! This is the foundation of quantum algorithms.", "Hadamard Gate Operation");
+                    });
                 }
             },
             11: {
                 chapter: "Chapter 4: Quantum Gates",
-                title: "The Z Gate (Phase Flip)",
-                content: "The Z gate applies a phase flip. While it doesn't change |0⟩ or |1⟩ visually, it affects the quantum phase. Click \"Try It\" to see the visual effect!",
+                title: "The Z Gate (Phase Gate)",
+                content: "The Z gate applies a phase flip to the |1⟩ component of a superposition state. It's like the X gate but operates on quantum phase instead of amplitude.",
                 action: () => {
-                    setMainQubit('one');
-                    showGate('Z');
-                    setManualAction(() => applyGate('Z'));
+                    resetVisualization();
+                    showMainQubit();
+                    showQuantumGate('z');
+                    setMainQubit('superposition');
+                    setManualAction(() => {
+                        applyZGate();
+                        showResult("⚡ Z Gate Applied!\\n\\n(|0⟩ + |1⟩)/√2 → (|0⟩ - |1⟩)/√2\\n\\nThe Z gate flipped the phase of the |1⟩ component. The qubit is still in superposition, but with opposite phase!", "Z Gate Operation");
+                    });
                 }
             },
             12: {
                 chapter: "Chapter 4: Quantum Gates",
-                title: "The Z Gate (Phase Flip)",
-                content: "The Z gate applies a phase flip. While it doesn't change |0⟩ or |1⟩ visually, it affects the quantum phase. Click \"Try It\" to see the visual effect!",
+                title: "Combining Gates",
+                content: "Quantum gates can be combined to create complex operations. Try applying multiple gates in sequence to see how they transform the qubit state!",
                 action: () => {
-                    resetToSingleQubit();
-                    setMainQubit('one');
-                    showGate('Z');
-                    setManualAction(() => applyGate('Z'));
+                    resetVisualization();
+                    showMainQubit();
+                    showQuantumGate('all');
+                    setMainQubit('zero');
+                    let gateSequence = [];
+                    setManualAction(() => {
+                        // Apply a random gate sequence
+                        const gates = ['H', 'X', 'Z'];
+                        const randomGate = gates[Math.floor(Math.random() * gates.length)];
+                        gateSequence.push(randomGate);
+                        
+                        if (randomGate === 'H') applyHGate();
+                        else if (randomGate === 'X') applyXGate();
+                        else if (randomGate === 'Z') applyZGate();
+                        
+                        showResult(`🔧 Applied ${randomGate} gate!\\n\\nGate sequence: ${gateSequence.join(' → ')}\\n\\nQuantum circuits are built by combining gates in sequence. Each gate transforms the qubit state mathematically.`, "Gate Sequence");
+                    });
                 }
             },
             13: {
                 chapter: "Chapter 5: Quantum Measurement",
-                title: "Measurement Collapses Superposition",
-                content: "When you measure a qubit in superposition, it randomly collapses to either |0⟩ or |1⟩. Click \"Try It\" to measure the qubit and see this random collapse!",
+                title: "The Measurement Problem",
+                content: "When we measure a quantum system, something dramatic happens - the superposition collapses! The qubit 'chooses' either |0⟩ or |1⟩ randomly, destroying the quantum state.",
                 action: () => {
-                    resetToSingleQubit();
+                    resetVisualization();
+                    showMainQubit();
                     setMainQubit('superposition');
-                    setManualAction(() => measureQubit());
+                    setManualAction(() => {
+                        const measurement = Math.random() < 0.5 ? 0 : 1;
+                        setMainQubit(measurement === 0 ? 'zero' : 'one');
+                        showResult(`📊 Measurement Result: |${measurement}⟩\\n\\n🌀 Before: Superposition (|0⟩ + |1⟩)/√2\\n📊 After: Definite state |${measurement}⟩\\n\\nThe quantum superposition collapsed! This is the fundamental quantum measurement process.`, "Quantum Measurement");
+                    });
                 }
             },
             14: {
                 chapter: "Chapter 5: Quantum Measurement",
-                title: "Measurement is Random",
-                content: "Each measurement gives a random result! Click \"Try It\" multiple times to see how the same superposition qubit can collapse to different states.",
+                title: "Quantum Randomness",
+                content: "Unlike classical computers which are deterministic, quantum measurements are truly random. Each measurement of a superposition state gives an unpredictable result!",
                 action: () => {
-                    setMainQubit('superposition');
-                    setManualAction(() => measureQubit());
+                    resetVisualization();
+                    showMainQubit();
+                    let measurements = [];
+                    setManualAction(() => {
+                        setMainQubit('superposition');
+                        setTimeout(() => {
+                            const result = Math.random() < 0.5 ? 0 : 1;
+                            measurements.push(result);
+                            setMainQubit(result === 0 ? 'zero' : 'one');
+                            const counts = measurements.reduce((acc, val) => {
+                                acc[val] = (acc[val] || 0) + 1;
+                                return acc;
+                            }, {});
+                            showResult(`🎲 Measurement ${measurements.length}: |${result}⟩\\n\\nResults so far: ${measurements.join(', ')}\\n|0⟩ count: ${counts[0] || 0}\\n|1⟩ count: ${counts[1] || 0}\\n\\nEach measurement gives a random result from the quantum superposition!`, "Quantum Randomness");
+                        }, 500);
+                    });
                 }
             },
             15: {
                 chapter: "Chapter 6: Quantum Entanglement",
                 title: "Creating Entanglement",
-                content: "Let's create quantum entanglement! We'll start with two separate qubits. Click \"Try It\" to entangle them - watch as they become connected!",
+                content: "Now for quantum's most mysterious feature: entanglement! Two qubits can become 'quantum mechanically connected' - measuring one instantly affects the other, no matter how far apart they are.",
                 action: () => {
                     resetVisualization();
                     showTwoQubits();
-                    setMainQubit('zero');
-                    setSecondQubit('zero');
                     setManualAction(() => {
                         createEntanglement();
-                        showResult("🔗 The qubits are now entangled! They're in a shared superposition state. When measured, they'll always give opposite results. Click \"Next Step\" to see this in action!", "Entanglement Created!");
+                        showResult("🔗 Entanglement Created!\\n\\nThese qubits are now quantum mechanically connected. Their states are correlated in a way that has no classical analogue.\\n\\nEinstein called this 'spooky action at a distance' - but it's real!", "Quantum Entanglement");
                     });
                 }
             },
             16: {
                 chapter: "Chapter 6: Quantum Entanglement",
                 title: "Measuring Entangled Qubits",
-                content: "Now let's measure the entangled qubits! Einstein called this 'spooky action at a distance.' Click \"Try It\" multiple times to see they always give opposite results!",
+                content: "When you measure one entangled qubit, you instantly know the other's state! This correlation is stronger than anything possible in classical physics.",
                 action: () => {
-                    // Keep the entangled state from previous step
-                    if (!isEntangled) {
-                        showTwoQubits();
-                        createEntanglement();
-                    }
-                    setManualAction(() => measureEntangledPair());
+                    resetVisualization();
+                    showTwoQubits();
+                    createEntanglement();
+                    setManualAction(() => {
+                        measureEntangledPair();
+                        setTimeout(() => {
+                            showResult("📊 Entangled Measurement Complete!\\n\\nMeasuring the first qubit instantly determined the second qubit's state. This correlation exists even if the qubits are separated by vast distances!\\n\\nThis is the foundation of quantum communication and quantum computing.", "Entangled Measurement");
+                        }, 500);
+                    });
                 }
             },
             17: {
@@ -1168,8 +600,8 @@
                     resetVisualization();
                     showClassicalSearch();
                     let searchStep = 0;
-                    const targetPattern = [1, 0, 1, 1]; // The pattern we're looking for
-                    const maxSteps = 16; // 2^4 = 16 possible combinations
+                    const targetPattern = [1, 0, 1, 1];
+                    const maxSteps = 16;
                     
                     setManualAction(() => {
                         if (searchStep < maxSteps) {
@@ -1177,9 +609,9 @@
                             searchStep++;
                             
                             if (found) {
-                                showResult(`🎯 Found it! Pattern 1011 located after checking ${searchStep} combinations out of 16 possible.\n\nWith 10 bits: up to 1,024 checks needed\nWith 20 bits: up to 1,048,576 checks!\nWith 256 bits (encryption): 10⁷⁷ checks!`, "Pattern Found!");
+                                showResult(`🎯 Found it! Pattern 1011 located after checking ${searchStep} combinations out of 16 possible.\\n\\nWith 10 bits: up to 1,024 checks needed\\nWith 20 bits: up to 1,048,576 checks!\\nWith 256 bits (encryption): 10⁷⁷ checks!`, "Pattern Found!");
                             } else {
-                                showResult(`Searching... Checked ${searchStep} of 16 possible combinations.\n\nClassical computers must check each possibility one by one. The search time grows exponentially with the number of bits!`, "Still Searching...");
+                                showResult(`Searching... Checked ${searchStep} of 16 possible combinations.\\n\\nClassical computers must check each possibility one by one. The search time grows exponentially with the number of bits!`, "Still Searching...");
                             }
                         }
                     });
@@ -1194,7 +626,7 @@
                     showQuantumParallel();
                     setManualAction(() => {
                         updateQuantumParallel();
-                        showResult("🚀 Quantum Magic: All 16 combinations processed simultaneously!\n\n⚡ Classical: 16 sequential steps\n⚡ Quantum: 1 parallel operation\n\nThis exponential speedup is why quantum computers can break encryption, simulate molecules, and solve optimization problems that would take classical computers centuries!", "Quantum Parallelism Advantage");
+                        showResult("🚀 Quantum Magic: All 16 combinations processed simultaneously!\\n\\n⚡ Classical: 16 sequential steps\\n⚡ Quantum: 1 parallel operation\\n\\nThis exponential speedup is why quantum computers can break encryption, simulate molecules, and solve optimization problems that would take classical computers centuries!", "Quantum Parallelism Advantage");
                     });
                 }
             },
@@ -1209,7 +641,7 @@
                     setManualAction(() => {
                         measureEntangledPair();
                         setTimeout(() => {
-                            showResult("💊 Drug Discovery: Simulate molecular interactions\n🔐 Cryptography: Break current encryption, create quantum-safe methods\n🚗 Optimization: Solve traffic flow and logistics\n🤖 AI: Enhance machine learning algorithms", "Quantum Applications");
+                            showResult("💊 Drug Discovery: Simulate molecular interactions\\n🔐 Cryptography: Break current encryption, create quantum-safe methods\\n🚗 Optimization: Solve traffic flow and logistics\\n🤖 AI: Enhance machine learning algorithms", "Quantum Applications");
                         }, 500);
                     });
                 }
@@ -1225,7 +657,7 @@
                     setManualAction(() => {
                         measureEntangledPair();
                         setTimeout(() => {
-                            showResult("🔐 Quantum Cryptography Impact:\n\n💥 BREAKS current encryption: RSA, AES vulnerable to quantum algorithms\n🛡️ CREATES quantum-safe methods: Quantum key distribution is unbreakable\n🔍 DETECTS eavesdropping: Quantum measurement reveals intruders\n🌐 ENABLES secure communication: Quantum internet using entanglement\n\nPost-quantum cryptography is already being developed to prepare for the quantum revolution!", "Quantum Cryptography Revolution");
+                            showResult("🔐 Quantum Cryptography Impact:\\n\\n💥 BREAKS current encryption: RSA, AES vulnerable to quantum algorithms\\n🛡️ CREATES quantum-safe methods: Quantum key distribution is unbreakable\\n🔍 DETECTS eavesdropping: Quantum measurement reveals intruders\\n🌐 ENABLES secure communication: Quantum internet using entanglement\\n\\nPost-quantum cryptography is already being developed to prepare for the quantum revolution!", "Quantum Cryptography Revolution");
                         }, 500);
                     });
                 }
@@ -1242,7 +674,7 @@
                     
                     setManualAction(() => {
                         animateCelebration();
-                        showResult("🎯 Classical Bits → 🔮 Bloch Sphere → ⚛️ Qubits → 🌀 Superposition → 📊 Measurement → 🔗 Entanglement → ⚡ Quantum Gates → 🚀 Quantum Advantage → 🔐 Quantum Cryptography\n\nYou're now ready to explore the quantum future!", "Your Quantum Journey");
+                        showResult("🎯 Classical Bits → 🔮 Bloch Sphere → ⚛️ Qubits → 🌀 Superposition → 📊 Measurement → 🔗 Entanglement → ⚡ Quantum Gates → 🚀 Quantum Advantage → 🔐 Quantum Cryptography\\n\\nYou're now ready to explore the quantum future!", "Your Quantum Journey");
                     });
                 }
             }
@@ -1262,7 +694,6 @@
         
         function nextStep() {
             if (currentStep >= totalSteps) {
-                // Restart
                 currentStep = 1;
                 document.getElementById('next-btn').textContent = 'Next Step';
                 document.getElementById('manual-btn').style.display = 'inline-block';
@@ -1270,7 +701,7 @@
                 currentStep++;
             }
             
-            hideResult(); // Reset Try It state
+            hideResult();
             updateProgress();
             updateButtonStates();
             
@@ -1286,7 +717,7 @@
             if (currentStep > 1) {
                 currentStep--;
                 
-                hideResult(); // Reset Try It state
+                hideResult();
                 updateProgress();
                 updateButtonStates();
                 
@@ -1299,7 +730,6 @@
             }
         }
         
-        
         function updateProgress() {
             const progressFill = document.getElementById('progress-fill');
             const slideCounter = document.getElementById('slide-counter');
@@ -1310,20 +740,19 @@
             
             slideCounter.textContent = `Step ${currentStep} of ${totalSteps}`;
             
-            // Update progress text based on step
             const progressMessages = {
                 1: "Getting Started",
-                2: "Classical Basics", 
-                3: "Binary Information",
-                4: "Entering Quantum",
-                5: "Bloch Sphere Basics",
+                2: "Classical Bits",
+                3: "Quantum Basics",
+                4: "Qubits Intro",
+                5: "Superposition",
                 6: "Quantum States",
-                7: "Superposition",
-                8: "Quantum Qubits",
+                7: "Classical vs Quantum",
+                8: "Working with Qubits",
                 9: "X Gate",
                 10: "H Gate",
-                11: "Advanced Gates",
-                12: "Z Gate",
+                11: "Z Gate",
+                12: "Gate Combinations",
                 13: "Measurement Basics",
                 14: "Measurement Randomness",
                 15: "Creating Entanglement",
@@ -1341,68 +770,56 @@
         function updateButtonStates() {
             const prevBtn = document.getElementById('prev-btn');
             const nextBtn = document.getElementById('next-btn');
-            const manualBtn = document.getElementById('manual-btn');
             
-            // Update previous button state
-            if (currentStep <= 1) {
-                prevBtn.disabled = true;
-                prevBtn.style.opacity = '0.5';
-            } else {
-                prevBtn.disabled = false;
-                prevBtn.style.opacity = '1';
-            }
+            prevBtn.disabled = currentStep === 1;
             
-            // Update next button text for final step
             if (currentStep >= totalSteps) {
                 nextBtn.textContent = 'Start Over';
-                manualBtn.style.display = 'none';
             } else {
                 nextBtn.textContent = 'Next Step';
-                manualBtn.style.display = 'inline-block';
             }
         }
         
-        function updateChapterTitle(chapterText) {
-            // Parse "Chapter 1: Classical Computing" format
-            const parts = chapterText.split(': ');
-            const chapterNumber = parts[0]; // "Chapter 1"
-            const chapterTitle = parts[1]; // "Classical Computing"
+        function updateChapterTitle(chapter) {
+            const parts = chapter.split(': ');
+            const chapterNumber = parts[0];
+            const chapterTitle = parts[1] || '';
             
             document.getElementById('chapter-number').textContent = chapterNumber;
             document.getElementById('chapter-title').textContent = chapterTitle;
         }
         
         function updateExplanation(content, title) {
-            const explanation = document.getElementById('explanation');
-            explanation.innerHTML = `<h3>${title}</h3><p>${content}</p>`;
+            const explanation = document.getElementById('step-explanation');
+            explanation.innerHTML = `<h3 class="text-lg font-semibold text-gray-900 mb-3">${title}</h3><p class="text-gray-700 leading-relaxed">${content}</p>`;
         }
         
         function showResult(content, title = "Try It Result") {
             const resultArea = document.getElementById('result-area');
             const resultText = document.getElementById('result-text');
-            resultArea.classList.add('active');
+            resultArea.classList.remove('hidden');
             resultArea.querySelector('h4').textContent = title;
             resultText.textContent = content;
         }
         
         function hideResult() {
             const resultArea = document.getElementById('result-area');
-            resultArea.classList.remove('active');
+            resultArea.classList.add('hidden');
         }
         
         function resetVisualization() {
             document.getElementById('classical-bit').style.display = 'none';
-            document.getElementById('binary-display').classList.remove('active');
-            document.getElementById('bloch-sphere').classList.remove('active');
-            document.getElementById('bloch-vector').classList.remove('active', 'highlighted');
+            document.getElementById('binary-display').classList.add('hidden');
+            document.getElementById('bloch-sphere').classList.add('hidden');
+            document.getElementById('bloch-vector').classList.add('hidden');
             document.getElementById('main-qubit').style.display = 'none';
             document.getElementById('second-qubit').classList.add('hidden');
-            document.getElementById('entanglement-line').classList.remove('active');
-            document.getElementById('celebration-container').classList.remove('active');
-            document.getElementById('classical-search').classList.remove('active');
-            document.getElementById('quantum-parallel').classList.remove('active');
+            document.getElementById('entanglement-line').classList.add('opacity-0');
+            document.getElementById('celebration-container').classList.add('hidden');
+            document.getElementById('classical-search').classList.add('hidden');
+            document.getElementById('quantum-parallel').classList.add('hidden');
             document.querySelectorAll('.quantum-gate').forEach(gate => {
-                gate.classList.remove('active');
+                gate.classList.add('opacity-50');
                 gate.style.display = 'none';
             });
             hideResult();
@@ -1411,214 +828,192 @@
         
         function showClassicalBit() {
             document.getElementById('classical-bit').style.display = 'flex';
-            document.getElementById('bloch-sphere').classList.remove('active');
-            document.getElementById('main-qubit').style.display = 'none';
-        }
-        
-        function hideClassicalBit() {
-            document.getElementById('classical-bit').style.display = 'none';
-        }
-        
-        function showBlochSphere() {
-            document.getElementById('bloch-sphere').classList.add('active');
-            document.getElementById('main-qubit').style.display = 'none';
-        }
-        
-        function hideBlochSphere() {
-            document.getElementById('bloch-sphere').classList.remove('active');
-        }
-        
-        function showMainQubit() {
-            document.getElementById('main-qubit').style.display = 'flex';
-            document.getElementById('bloch-sphere').classList.remove('active');
+            document.getElementById('bloch-sphere').classList.add('hidden');
         }
         
         function setClassicalBit(state) {
             const bit = document.getElementById('classical-bit');
-            bit.className = `classical-bit ${state}`;
-            bit.textContent = state === 'zero' ? '0' : '1';
-        }
-        
-        function setBlochVector(position) {
-            const vector = document.getElementById('bloch-vector');
-            vector.classList.add('active'); // Show the vector
-            
-            if (position === 'north') {
-                vector.style.transform = 'translateX(-50%) translateY(-100%) rotateZ(0deg)';
-            } else if (position === 'south') {
-                vector.style.transform = 'translateX(-50%) translateY(-100%) rotateZ(180deg)';
-            } else if (position === 'equator') {
-                vector.style.transform = 'translateX(-50%) translateY(-100%) rotateZ(90deg)';
+            bit.textContent = state;
+            if (state === 0) {
+                bit.className = 'w-15 h-15 rounded-lg mx-2 flex items-center justify-center font-semibold text-lg transition-all duration-300 cursor-pointer bg-gray-100 border-2 border-gray-200 text-gray-600';
+            } else {
+                bit.className = 'w-15 h-15 rounded-lg mx-2 flex items-center justify-center font-semibold text-lg transition-all duration-300 cursor-pointer bg-gray-900 border-2 border-gray-900 text-white shadow-sm';
             }
         }
         
         function showBinaryDisplay() {
-            document.getElementById('binary-display').classList.add('active');
-            document.getElementById('classical-bit').style.display = 'none';
+            document.getElementById('binary-display').classList.remove('hidden');
         }
         
-        function setBinaryPatternSilent(char) {
-            const patterns = {
-                'A': '01000001',
-                'B': '01000010',
-                'C': '01000011',
-                '?': '00111111',
-                '!': '00100001'
-            };
-            
-            const pattern = patterns[char] || '00000000';
-            const result = document.getElementById('result');
-            const label = document.getElementById('binary-display').querySelector('.binary-label');
-            
-            // Update each bit without animation
-            for (let i = 0; i < 8; i++) {
-                const bit = document.getElementById(`bit-${i}`);
-                const value = pattern[i];
-                bit.textContent = value;
-                bit.className = `bit-box ${value === '0' ? 'zero' : 'one'}`;
-            }
-            
-            result.textContent = char;
-            const decimal = parseInt(pattern, 2);
-            label.textContent = `ASCII Binary (${pattern} = ${decimal} = '${char}')`;
+        function setBinaryPatternSilent(pattern, result) {
+            const bits = ['bit-0', 'bit-1', 'bit-2', 'bit-3', 'bit-4', 'bit-5', 'bit-6', 'bit-7'];
+            bits.forEach((id, index) => {
+                const bit = document.getElementById(id);
+                bit.textContent = pattern[index];
+                if (pattern[index] === 0) {
+                    bit.className = 'w-11 h-11 rounded bg-gray-100 border-2 border-gray-200 flex items-center justify-center font-semibold text-sm text-gray-600 transition-all duration-300';
+                } else {
+                    bit.className = 'w-11 h-11 rounded bg-gray-900 border-2 border-gray-900 flex items-center justify-center font-semibold text-sm text-white transition-all duration-300 shadow-sm';
+                }
+            });
+            document.getElementById('result').textContent = result;
         }
         
-        function setBinaryPattern(char) {
-            setBinaryPatternSilent(char);
-            
-            const patterns = {
-                'A': '01000001',
-                'B': '01000010',
-                'C': '01000011',
-                '?': '00111111',
-                '!': '00100001'
-            };
-            
-            const pattern = patterns[char] || '00000000';
-            const decimal = parseInt(pattern, 2);
-            
-            // Animate the change
-            for (let i = 0; i < 8; i++) {
-                const bit = document.getElementById(`bit-${i}`);
-                bit.style.transform = 'scale(1.2)';
-                setTimeout(() => {
-                    bit.style.transform = 'scale(1)';
-                }, 100 + i * 50);
-            }
-            
-            showResult(`The 8 bits now represent '${char}'. In ASCII encoding, ${pattern} equals ${decimal} which displays as '${char}'. Try clicking again!`, "Binary Result");
+        function showBlochSphere() {
+            document.getElementById('bloch-sphere').classList.remove('hidden');
+        }
+        
+        function showMainQubit() {
+            document.getElementById('main-qubit').style.display = 'flex';
         }
         
         function setMainQubit(state) {
             const qubit = document.getElementById('main-qubit');
-            qubit.className = `qubit ${state}`;
-            qubit.textContent = state === 'zero' ? '|0⟩' : state === 'one' ? '|1⟩' : '|+⟩';
+            qubit.classList.remove('qubit-zero', 'qubit-one', 'qubit-superposition', 'animate-pulse-quantum');
+            
+            if (state === 'zero') {
+                qubit.className += ' qubit-zero';
+                qubit.textContent = '|0⟩';
+            } else if (state === 'one') {
+                qubit.className += ' qubit-one';
+                qubit.textContent = '|1⟩';
+            } else if (state === 'superposition') {
+                qubit.className += ' qubit-superposition animate-pulse-quantum';
+                qubit.textContent = '|ψ⟩';
+            }
         }
         
-        function setSecondQubit(state) {
-            const qubit = document.getElementById('second-qubit');
-            qubit.className = `qubit ${state}`;
-            qubit.textContent = state === 'zero' ? '|0⟩' : state === 'one' ? '|1⟩' : '|+⟩';
+        function showBlochVector() {
+            document.getElementById('bloch-vector').classList.remove('hidden');
+        }
+        
+        function highlightBlochVector() {
+            const vector = document.getElementById('bloch-vector');
+            vector.classList.add('w-1', 'h-24', 'bg-purple-800', 'shadow-lg');
+            vector.classList.add('animate-pulse-arrow');
+        }
+        
+        function rotateBlochVector(angle) {
+            const vector = document.getElementById('bloch-vector');
+            vector.style.transform = `translateX(-50%) translateY(-100%) rotateZ(${angle}deg)`;
+        }
+        
+        function showQuantumGate(type) {
+            if (type === 'x' || type === 'all') {
+                const xGate = document.getElementById('x-gate');
+                xGate.style.display = 'flex';
+                xGate.classList.remove('opacity-50');
+                xGate.classList.add('border-purple-600', 'text-purple-600');
+            }
+            if (type === 'h' || type === 'all') {
+                const hGate = document.getElementById('h-gate');
+                hGate.style.display = 'flex';
+                hGate.classList.remove('opacity-50');
+                hGate.classList.add('border-purple-600', 'text-purple-600');
+            }
+            if (type === 'z' || type === 'all') {
+                const zGate = document.getElementById('z-gate');
+                zGate.style.display = 'flex';
+                zGate.classList.remove('opacity-50');
+                zGate.classList.add('border-purple-600', 'text-purple-600');
+            }
+        }
+        
+        function applyXGate() {
+            const qubit = document.getElementById('main-qubit');
+            if (qubit.classList.contains('qubit-zero')) {
+                setMainQubit('one');
+            } else {
+                setMainQubit('zero');
+            }
+        }
+        
+        function applyHGate() {
+            setMainQubit('superposition');
+        }
+        
+        function applyZGate() {
+            // Visual indication of phase flip
+            const qubit = document.getElementById('main-qubit');
+            qubit.style.transform = 'scale(1.1)';
+            setTimeout(() => {
+                qubit.style.transform = 'scale(1)';
+            }, 300);
         }
         
         function showTwoQubits() {
             document.getElementById('main-qubit').style.display = 'flex';
             document.getElementById('second-qubit').classList.remove('hidden');
-            document.getElementById('second-qubit').style.display = 'flex';
             setMainQubit('zero');
             setSecondQubit('zero');
         }
         
-        function resetToSingleQubit() {
-            document.getElementById('second-qubit').classList.add('hidden');
-            document.getElementById('entanglement-line').classList.remove('active');
-            document.querySelectorAll('.quantum-gate').forEach(gate => {
-                gate.classList.remove('active');
-                gate.style.display = 'none';
-            });
-            isEntangled = false;
+        function setSecondQubit(state) {
+            const qubit = document.getElementById('second-qubit');
+            qubit.classList.remove('qubit-zero', 'qubit-one', 'qubit-superposition', 'animate-pulse-quantum');
+            
+            if (state === 'zero') {
+                qubit.className += ' qubit-zero';
+                qubit.textContent = '|0⟩';
+            } else if (state === 'one') {
+                qubit.className += ' qubit-one';
+                qubit.textContent = '|1⟩';
+            } else if (state === 'superposition') {
+                qubit.className += ' qubit-superposition animate-pulse-quantum';
+                qubit.textContent = '|ψ⟩';
+            }
         }
         
         function createEntanglement() {
+            document.getElementById('entanglement-line').classList.remove('opacity-0');
             setMainQubit('superposition');
             setSecondQubit('superposition');
-            document.getElementById('entanglement-line').classList.add('active');
             isEntangled = true;
         }
         
-        function measureQubit() {
-            const result = Math.random() < 0.5 ? 'zero' : 'one';
-            setMainQubit(result);
-            
-            setTimeout(() => {
-                const resultText = result === 'zero' ? '|0⟩' : '|1⟩';
-                showResult(`Measurement result: ${resultText}. Try clicking "Try It" again to see another random result!`, "Measurement Result");
-            }, 500);
-        }
-        
         function measureEntangledPair() {
-            if (!isEntangled) return;
-            
-            const result1 = Math.random() < 0.5 ? 'zero' : 'one';
-            const result2 = result1 === 'zero' ? 'one' : 'zero'; // Always opposite for this demo
-            
-            setMainQubit(result1);
-            setSecondQubit(result2);
-            
-            setTimeout(() => {
-                const result1Text = result1 === 'zero' ? '|0⟩' : '|1⟩';
-                const result2Text = result2 === 'zero' ? '|0⟩' : '|1⟩';
-                showResult(`Entangled measurement: Left qubit is ${result1Text}, Right qubit is ${result2Text}. Notice they're always opposite!`, "Entangled Measurement");
-            }, 500);
-        }
-        
-        function showGate(gateName) {
-            document.querySelectorAll('.quantum-gate').forEach(gate => {
-                gate.style.display = 'none';
-                gate.classList.remove('active');
-            });
-            
-            const gate = document.getElementById(`gate-${gateName.toLowerCase()}`);
-            gate.style.display = 'flex';
-            gate.classList.add('active');
-        }
-        
-        function applyGate(gateName) {
-            const qubit = document.getElementById('main-qubit');
-            
-            if (gateName === 'X') {
-                if (qubit.classList.contains('zero')) {
-                    setMainQubit('one');
-                } else if (qubit.classList.contains('one')) {
-                    setMainQubit('zero');
+            if (isEntangled) {
+                const result1 = Math.random() < 0.5 ? 'zero' : 'one';
+                const result2 = result1 === 'zero' ? 'one' : 'zero';
+                
+                document.getElementById('measurement-qubit1').style.display = 'flex';
+                document.getElementById('measurement-qubit2').style.display = 'flex';
+                
+                if (result1 === 'zero') {
+                    document.getElementById('measurement-qubit1').className += ' qubit-zero';
+                    document.getElementById('measurement-qubit1').textContent = '|0⟩';
+                } else {
+                    document.getElementById('measurement-qubit1').className += ' qubit-one';
+                    document.getElementById('measurement-qubit1').textContent = '|1⟩';
                 }
-            } else if (gateName === 'H') {
-                setMainQubit('superposition');
-            } else if (gateName === 'Z') {
-                // Visual phase flip effect
-                qubit.style.transform = 'rotateY(180deg)';
-                setTimeout(() => {
-                    qubit.style.transform = 'rotateY(0deg)';
-                }, 500);
+                
+                if (result2 === 'zero') {
+                    document.getElementById('measurement-qubit2').className += ' qubit-zero';
+                    document.getElementById('measurement-qubit2').textContent = '|0⟩';
+                } else {
+                    document.getElementById('measurement-qubit2').className += ' qubit-one';
+                    document.getElementById('measurement-qubit2').textContent = '|1⟩';
+                }
+                
+                setMainQubit(result1);
+                setSecondQubit(result2);
             }
         }
         
         function showClassicalSearch() {
-            document.getElementById('classical-search').classList.add('active');
+            document.getElementById('classical-search').classList.remove('hidden');
             const grid = document.getElementById('search-grid');
             grid.innerHTML = '';
             
-            // Generate all 16 possible 4-bit combinations
             for (let i = 0; i < 16; i++) {
                 const row = document.createElement('div');
-                row.className = 'search-row';
+                row.className = 'flex gap-1 p-2 rounded border-2 border-transparent transition-all duration-300';
                 row.id = `search-row-${i}`;
                 
-                // Convert number to 4-bit binary
                 const binary = i.toString(2).padStart(4, '0');
                 for (let j = 0; j < 4; j++) {
                     const bit = document.createElement('div');
-                    bit.className = `search-bit ${binary[j] === '0' ? 'zero' : 'one'}`;
+                    bit.className = `w-9 h-9 rounded flex items-center justify-center font-semibold text-sm transition-all duration-300 ${binary[j] === '0' ? 'bg-gray-100 text-gray-600 border border-gray-200' : 'bg-gray-900 text-white border border-gray-900'}`;
                     bit.textContent = binary[j];
                     row.appendChild(bit);
                 }
@@ -1626,7 +1021,6 @@
                 grid.appendChild(row);
             }
             
-            // Reset counter
             document.getElementById('search-counter').textContent = 'Combinations checked: 0 / 16';
         }
         
@@ -1634,15 +1028,12 @@
             const counter = document.getElementById('search-counter');
             const currentRow = document.getElementById(`search-row-${step}`);
             
-            // Clear previous states
             document.querySelectorAll('.search-row').forEach(row => {
-                row.classList.remove('checking');
+                row.classList.remove('bg-yellow-100', 'border-yellow-400');
             });
             
-            // Highlight current row being checked
-            currentRow.classList.add('checking');
+            currentRow.classList.add('bg-yellow-100', 'border-yellow-400', 'scale-105');
             
-            // Convert step to binary and check if it matches target
             const binary = step.toString(2).padStart(4, '0');
             const targetBinary = targetPattern.join('');
             const found = binary === targetBinary;
@@ -1650,11 +1041,11 @@
             counter.textContent = `Combinations checked: ${step + 1} / 16`;
             
             setTimeout(() => {
-                currentRow.classList.remove('checking');
+                currentRow.classList.remove('bg-yellow-100', 'border-yellow-400', 'scale-105');
                 if (found) {
-                    currentRow.classList.add('found');
+                    currentRow.classList.add('bg-green-100', 'border-green-500', 'scale-105', 'shadow-lg');
                 } else {
-                    currentRow.classList.add('checked');
+                    currentRow.classList.add('opacity-40');
                 }
             }, 800);
             
@@ -1662,17 +1053,15 @@
         }
         
         function showQuantumParallel() {
-            document.getElementById('quantum-parallel').classList.add('active');
+            document.getElementById('quantum-parallel').classList.remove('hidden');
             const statesGrid = document.getElementById('parallel-states');
             statesGrid.innerHTML = '';
             
-            // Generate all 16 possible 4-bit combinations
             for (let i = 0; i < 16; i++) {
                 const state = document.createElement('div');
-                state.className = 'parallel-state';
+                state.className = 'bg-gray-200 p-2 rounded text-center text-sm font-medium transition-all duration-300 text-gray-700';
                 state.id = `parallel-state-${i}`;
                 
-                // Convert number to 4-bit binary
                 const binary = i.toString(2).padStart(4, '0');
                 state.textContent = binary;
                 
@@ -1681,139 +1070,63 @@
         }
         
         function updateQuantumParallel() {
-            // Highlight all states simultaneously to show quantum parallelism
             const states = document.querySelectorAll('.parallel-state');
             const targetPattern = '1011';
             
-            // First, highlight all states simultaneously
             states.forEach((state, index) => {
                 setTimeout(() => {
-                    state.classList.add('highlight');
-                }, index * 50); // Stagger the highlighting for visual effect
+                    state.classList.add('bg-yellow-100', 'border', 'border-yellow-400', 'scale-105');
+                }, index * 50);
             });
             
-            // After showing all states being processed, highlight the target
             setTimeout(() => {
                 states.forEach(state => {
                     if (state.textContent === targetPattern) {
-                        state.style.background = 'rgba(76, 175, 80, 0.8)';
-                        state.style.boxShadow = '0 0 25px rgba(76, 175, 80, 1)';
-                        state.style.transform = 'scale(1.2)';
+                        state.classList.remove('bg-yellow-100', 'border-yellow-400');
+                        state.classList.add('bg-green-200', 'border-green-500', 'scale-110', 'shadow-lg');
                     }
                 });
             }, 1000);
         }
         
         function showCelebration() {
-            document.getElementById('celebration-container').classList.add('active');
-            
-            // Position entanglement lines
-            const container = document.getElementById('celebration-container');
-            const ent1 = document.getElementById('cele-entangled1');
-            const ent2 = document.getElementById('cele-entangled2');
-            const line1 = document.getElementById('cele-line1');
-            const line2 = document.getElementById('cele-line2');
-            
-            // Setup initial positions
-            setTimeout(() => {
-                const rect = container.getBoundingClientRect();
-                const rect1 = ent1.getBoundingClientRect();
-                const rect2 = ent2.getBoundingClientRect();
-                
-                line1.style.left = (rect1.left - rect.left + 25) + 'px';
-                line1.style.top = (rect1.top - rect.top + 25) + 'px';
-                line1.style.width = Math.abs(rect2.left - rect1.left) + 'px';
-                line1.style.transform = 'rotate(15deg)';
-                
-                line2.style.left = (rect1.left - rect.left + 25) + 'px';
-                line2.style.top = (rect1.top - rect.top + 25) + 'px';
-                line2.style.width = Math.abs(rect2.left - rect1.left) + 'px';
-                line2.style.transform = 'rotate(-15deg)';
-            }, 100);
+            document.getElementById('celebration-container').classList.remove('hidden');
         }
         
         function animateCelebration() {
-            const container = document.getElementById('celebration-container');
-            const elements = container.querySelectorAll('.celebration-qubit, .celebration-sphere');
-            
-            // Animate all elements
-            elements.forEach((el, index) => {
-                setTimeout(() => {
-                    el.style.transform = 'scale(1.3)';
-                    el.style.filter = 'brightness(1.5)';
-                    
-                    setTimeout(() => {
-                        el.style.transform = 'scale(1)';
-                        el.style.filter = 'brightness(1)';
-                    }, 500);
-                }, index * 200);
-            });
-            
-            // Create fireworks
             for (let i = 0; i < 20; i++) {
                 setTimeout(() => {
-                    createFirework(container);
-                }, i * 100);
+                    createFirework();
+                }, i * 200);
             }
-            
-            // Flash the lines
-            const lines = container.querySelectorAll('.celebration-line');
-            lines.forEach(line => {
-                line.style.opacity = '1';
-                setTimeout(() => {
-                    line.style.opacity = '0';
-                }, 2000);
-            });
         }
         
-        function createFirework(container) {
+        function createFirework() {
+            const container = document.getElementById('visualization-area');
             const firework = document.createElement('div');
-            firework.className = 'firework';
-            
-            const colors = ['#4fc3f7', '#9c27b0', '#ff5722', '#4caf50', '#ffeb3b'];
-            const color = colors[Math.floor(Math.random() * colors.length)];
-            
-            firework.style.background = color;
-            firework.style.left = Math.random() * 100 + '%';
-            firework.style.top = Math.random() * 100 + '%';
+            firework.className = 'firework absolute w-1 h-1 rounded-full';
+            firework.style.background = `hsl(${Math.random() * 360}, 70%, 60%)`;
+            firework.style.left = Math.random() * container.offsetWidth + 'px';
+            firework.style.top = Math.random() * container.offsetHeight + 'px';
             firework.style.setProperty('--x', (Math.random() - 0.5) * 200 + 'px');
             firework.style.setProperty('--y', (Math.random() - 0.5) * 200 + 'px');
             
             container.appendChild(firework);
             
             setTimeout(() => {
-                firework.remove();
+                container.removeChild(firework);
             }, 1500);
         }
         
         // Initialize
-        window.addEventListener('load', () => {
-            updateProgress();
-            updateButtonStates();
-            stepContent[1].action();
-            
-            // Position entanglement line
-            const mainQubit = document.getElementById('main-qubit');
-            const secondQubit = document.getElementById('second-qubit');
-            const line = document.getElementById('entanglement-line');
-            
-            const observer = new ResizeObserver(() => {
-                const container = document.getElementById('visualization-area');
-                const rect1 = mainQubit.getBoundingClientRect();
-                const rect2 = secondQubit.getBoundingClientRect();
-                const containerRect = container.getBoundingClientRect();
-                
-                const startX = rect1.left + rect1.width/2 - containerRect.left;
-                const endX = rect2.left + rect2.width/2 - containerRect.left;
-                const centerY = rect1.top + rect1.height/2 - containerRect.top;
-                
-                line.style.left = startX + 'px';
-                line.style.top = centerY + 'px';
-                line.style.width = Math.abs(endX - startX) + 'px';
-            });
-            
-            observer.observe(document.getElementById('visualization-area'));
-        });
+        updateProgress();
+        updateButtonStates();
+        const step = stepContent[currentStep];
+        if (step) {
+            updateChapterTitle(step.chapter);
+            updateExplanation(step.content, step.title);
+            step.action();
+        }
     </script>
 </body>
 </html>
