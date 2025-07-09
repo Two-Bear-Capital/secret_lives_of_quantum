@@ -2,10 +2,14 @@
 
 An interactive visualization that teaches quantum computing concepts through hands-on exploration, inspired by [The Secret Lives of Data](https://thesecretlivesofdata.com/raft/).
 
+![Alpha](https://img.shields.io/badge/Status-Alpha-red)
+![Work in Progress](https://img.shields.io/badge/Work%20in%20Progress-🚧-yellow)
 ![Quantum Computing Visualization](https://img.shields.io/badge/Quantum-Computing-blue)
 ![HTML5](https://img.shields.io/badge/HTML5-E34F26?logo=html5&logoColor=white)
 ![CSS3](https://img.shields.io/badge/CSS3-1572B6?logo=css3&logoColor=white)
 ![JavaScript](https://img.shields.io/badge/JavaScript-F7DF1E?logo=javascript&logoColor=black)
+
+> ⚠️ **Alpha Version**: This project is in active development. Expect frequent changes, potential bugs, and ongoing improvements to visualizations and content.
 
 ## Overview
 
@@ -19,6 +23,8 @@ This educational tool breaks down complex quantum computing concepts into digest
 - **Quantum Advantage**: Why quantum computing matters and real-world applications
 
 ## Getting Started
+
+> 🚧 **Development Status**: This is an alpha version under active development. Some visualizations may be incomplete, and content is subject to change. We welcome feedback and contributions!
 
 ### Prerequisites
 
@@ -117,6 +123,8 @@ Since this is a static HTML file, deployment is straightforward:
 This project is already configured to deploy to GitHub Pages!
 
 🌐 **Live Demo**: [https://two-bear-capital.github.io/secret_lives_of_quantum/](https://two-bear-capital.github.io/secret_lives_of_quantum/)
+
+> ⚠️ **Note**: The live demo reflects the current development state and may contain incomplete features or bugs.
 
 To update the deployment:
 1. Make your changes locally
